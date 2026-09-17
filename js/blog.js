@@ -70,7 +70,13 @@
 
   let currentCategory = 'all';
 
-  function loadPosts() {
+  async function loadPosts() {
+    if (window.portfolioDB) {
+      try {
+        const dbPosts = await window.portfolioDB.getPosts();
+        if (dbPosts && dbPosts.length > 0) return dbPosts;
+      } catch (e) {}
+    }
     const saved = localStorage.getItem(STORAGE_KEY);
     if (!saved) {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(defaultPosts));
@@ -89,14 +95,15 @@
       case 'ai': return 'badge-purple';
       case 'python': return 'badge-yellow';
       case 'react': return 'badge-pink';
-      case 'database': return 'badge-green';
+      case 'database':
+      case 'databases': return 'badge-green';
       default: return 'badge-cyan';
     }
   }
 
-  function renderPosts() {
+  async function renderPosts() {
     if (!blogGrid) return;
-    const posts = loadPosts();
+    const posts = await loadPosts();
 
     const filtered = currentCategory === 'all' 
       ? posts 
@@ -154,8 +161,8 @@
     });
   }
 
-  function openArticle(id) {
-    const posts = loadPosts();
+  async function openArticle(id) {
+    const posts = await loadPosts();
     const post = posts.find(p => p.id === id);
     if (!post || !readPostModal) return;
 
@@ -217,7 +224,7 @@
 
   // Submit New Post Form
   if (newPostForm) {
-    newPostForm.addEventListener('submit', (e) => {
+    newPostForm.addEventListener('submit', async (e) => {
       e.preventDefault();
 
       const title = document.getElementById('post-title').value.trim();
@@ -247,13 +254,17 @@
         content: content.split('\n\n').map(p => `<p>${escapeHtml(p)}</p>`).join('')
       };
 
-      const posts = loadPosts();
-      posts.unshift(newPost);
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(posts));
+      if (window.portfolioDB) {
+        await window.portfolioDB.savePost(newPost);
+      } else {
+        const posts = await loadPosts();
+        posts.unshift(newPost);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(posts));
+      }
 
       newPostForm.reset();
       modalBackdrop.classList.remove('active');
-      renderPosts();
+      await renderPosts();
 
       if (window.showToast) {
         window.showToast('🚀 New blog post published successfully!', 'success');

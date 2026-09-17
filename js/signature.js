@@ -175,7 +175,13 @@
   }
 
   // Load Saved Signatures
-  function loadSignatures() {
+  async function loadSignatures() {
+    if (window.portfolioDB) {
+      try {
+        const dbSigs = await window.portfolioDB.getSignatures();
+        if (dbSigs && dbSigs.length > 0) return dbSigs;
+      } catch (e) {}
+    }
     let saved = localStorage.getItem(STORAGE_KEY);
     if (!saved) {
       const initial = getSampleSignatures();
@@ -190,8 +196,8 @@
   }
 
   // Render Signatures
-  function renderSignatures() {
-    const list = loadSignatures();
+  async function renderSignatures() {
+    const list = await loadSignatures();
     if (totalSignaturesCount) {
       totalSignaturesCount.textContent = `${list.length} Signatures`;
     }
@@ -222,7 +228,7 @@
   }
 
   // Save Signature
-  function handleStampSignature() {
+  async function handleStampSignature() {
     const name = guestNameInput ? guestNameInput.value.trim() : '';
     const role = guestRoleInput ? guestRoleInput.value.trim() : '';
 
@@ -249,23 +255,36 @@
     const signatureDataUrl = canvas.toDataURL('image/png');
 
     const newEntry = {
-      id: 'sig-' + Date.now(),
       name: name,
       role: role || 'Visitor',
       date: 'Just now',
       signature: signatureDataUrl
     };
 
-    const currentList = loadSignatures();
-    currentList.unshift(newEntry);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(currentList));
+    if (stampBtn) {
+      stampBtn.disabled = true;
+      stampBtn.innerHTML = '⚡ Stamping...';
+    }
+
+    if (window.portfolioDB) {
+      await window.portfolioDB.saveSignature(newEntry);
+    } else {
+      const currentList = await loadSignatures();
+      currentList.unshift(newEntry);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(currentList));
+    }
 
     // Reset Form & Canvas
     clearCanvas();
     if (guestNameInput) guestNameInput.value = '';
     if (guestRoleInput) guestRoleInput.value = '';
 
-    renderSignatures();
+    if (stampBtn) {
+      stampBtn.disabled = false;
+      stampBtn.innerHTML = 'Stamp Signature into Guestbook';
+    }
+
+    await renderSignatures();
 
     if (window.showToast) {
       window.showToast('🎉 Signature stamped into the Guestbook!', 'success');

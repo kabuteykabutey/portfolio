@@ -1,24 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Brian Ahuma Kabutey | Web & App Developer • Freelancer</title>
-  <meta name="description" content="Portfolio of Brian Ahuma Kabutey - Web & App Developer specializing in Python, JavaScript, Database Architecture, AI Integration, and React. Open for freelance contracts." />
+  <meta name="description"
+    content="Portfolio of Brian Ahuma Kabutey - Web & App Developer specializing in Python, JavaScript, Database Architecture, AI Integration, and React. Open for freelance contracts." />
 
   <!-- Open Graph / Meta -->
   <meta property="og:title" content="Brian Ahuma Kabutey | Web & App Developer" />
-  <meta property="og:description" content="Web & App Developer skilled in Python, JavaScript, Database Architecture, AI Integration, and React." />
+  <meta property="og:description"
+    content="Web & App Developer skilled in Python, JavaScript, Database Architecture, AI Integration, and React." />
   <meta property="og:type" content="website" />
 
   <!-- Google Fonts: Space Grotesk, Syne, JetBrains Mono, Permanent Marker (mobile graffiti) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700;800&family=Permanent+Marker&family=Space+Grotesk:wght@500;600;700;800&family=Syne:wght@700;800;900&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700;800&family=Permanent+Marker&family=Space+Grotesk:wght@500;600;700;800&family=Syne:wght@700;800;900&display=swap"
+    rel="stylesheet" />
 
   <!-- Stylesheet -->
   <link rel="stylesheet" href="css/styles.css" />
 </head>
+
 <body>
 
   <!-- ==========================================================================
@@ -27,7 +33,9 @@
   <header class="site-header">
     <div class="container nav-container">
       <div class="brand-logo">
-        <a href="#home" class="logo-stamp">BRIAN.DEV</a>
+        <a href="#home" class="logo-stamp" id="site-logo" aria-label="Brian Dev Home">
+          <span class="logo-name">BRIAN</span><span class="logo-dot">.</span><span class="logo-ext">DEV</span>
+        </a>
         <div class="status-pill">
           <span class="status-dot"></span>
           <span>AVAILABLE FOR FREELANCE</span>
@@ -44,7 +52,7 @@
       </nav>
 
       <div class="nav-cta">
-        <a href="#contact" class="neo-btn neo-btn-yellow" id="nav-hire-btn">Hire Me ⚡</a>
+        <a href="#contact" class="neo-btn neo-btn-yellow" id="nav-hire-btn">Hire Me </a>
       </div>
 
       <button class="mobile-toggle" id="mobile-nav-toggle" aria-label="Toggle Navigation">
@@ -59,39 +67,63 @@
   <section class="hero-section" id="home">
     <div class="container hero-grid">
       <div class="hero-content">
-        <div class="hero-tag">⚡ FREELANCE WEB &amp; APP DEVELOPER</div>
+        <div class="hero-tag"> FREELANCE WEB &amp; APP DEVELOPER</div>
         <h1 class="hero-title">
           HELLO, I'M <span class="highlight-yellow">BRIAN AHUMA</span> <br />
           BUILDING <span class="highlight-cyan">ROBUST APPS</span> &amp; AI EXPERIENCES.
         </h1>
         <p class="hero-desc">
-          Versatile software builder with deep experience in <strong>Python</strong>, <strong>JavaScript</strong>, 
-          <strong>Databases</strong>, and <strong>Modern AI Integration</strong>, while aggressively leveling up in 
+          Versatile software builder with deep experience in <strong>Python</strong>, <strong>JavaScript</strong>,
+          <strong>Databases</strong>, and <strong>Modern AI Integration</strong>, while aggressively leveling up in
           <strong>React</strong>. Crafting deterministic systems and bold digital interfaces.
         </p>
 
         <div class="hero-actions">
-          <a href="#projects" class="neo-btn neo-btn-pink">View Projects 🚀</a>
-          <a href="#guestbook" class="neo-btn neo-btn-cyan">Sign Guestbook ✍️</a>
-          <a href="#contact" class="neo-btn neo-btn-yellow">Contact Brian 📬</a>
+          <a href="#projects" class="neo-btn neo-btn-pink">View Projects </a>
+          <a href="#guestbook" class="neo-btn neo-btn-cyan">Sign Guestbook </a>
+          <a href="#contact" class="neo-btn neo-btn-yellow">Contact Brian </a>
         </div>
 
         <div class="hero-socials">
           <span class="hero-social-label">Connect:</span>
           <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="social-pill" title="LinkedIn">
-            <span>💼</span> LinkedIn
+            <svg class="app-icon" viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
+              <path
+                d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.3a1.65 1.65 0 0 0-1.66 1.65 1.66 1.66 0 0 0 1.66 1.66 1.66 1.66 0 0 0 1.65-1.66A1.66 1.66 0 0 0 7.83 6.3z" />
+            </svg>
+            <span>LinkedIn</span>
           </a>
-          <a href="https://github.com/kabuteykabutey" target="_blank" rel="noopener noreferrer" class="social-pill" title="GitHub">
-            <span>🐙</span> GitHub
+          <a href="https://github.com/kabuteykabutey" target="_blank" rel="noopener noreferrer" class="social-pill"
+            title="GitHub">
+            <svg class="app-icon" viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" clip-rule="evenodd"
+                d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
+            </svg>
+            <span>GitHub</span>
           </a>
-          <a href="https://x.com/KabuteyKabutey" target="_blank" rel="noopener noreferrer" class="social-pill" title="X (Twitter)">
-            <span>✖️</span> X / Twitter
+          <a href="https://x.com/KabuteyKabutey" target="_blank" rel="noopener noreferrer" class="social-pill"
+            title="X (Twitter)">
+            <svg class="app-icon" viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
+              <path
+                d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+            </svg>
+            <span>X / Twitter</span>
           </a>
-          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="social-pill" title="Instagram">
-            <span>📸</span> Instagram
+          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="social-pill"
+            title="Instagram">
+            <svg class="app-icon" viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
+              <path
+                d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+            </svg>
+            <span>Instagram</span>
           </a>
-          <a href="https://www.facebook.com/share/18XKCK5Wfu/" target="_blank" rel="noopener noreferrer" class="social-pill" title="Facebook">
-            <span>📘</span> Facebook
+          <a href="https://www.facebook.com/share/18XKCK5Wfu/" target="_blank" rel="noopener noreferrer"
+            class="social-pill" title="Facebook">
+            <svg class="app-icon" viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
+              <path
+                d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+            </svg>
+            <span>Facebook</span>
           </a>
         </div>
       </div>
@@ -100,12 +132,12 @@
       <div class="hero-visual">
         <div class="hero-card">
           <div class="card-tape"></div>
-          <div class="avatar-wrapper">
-            <div class="avatar-graphic">👨🏾‍💻</div>
-            <div class="avatar-info">
-              <h3>Brian Ahuma Kabutey</h3>
-              <p>Full-Stack / Python / AI Integrator</p>
-            </div>
+          <div class="hero-photo-frame">
+            <img src="assets/brian-profile.jpg" alt="Brian Ahuma Kabutey - Web & App Developer" class="hero-photo" />
+          </div>
+          <div class="hero-card-meta">
+            <h3>Brian Ahuma Kabutey</h3>
+            <p>Full-Stack / Python / AI Integrator</p>
           </div>
 
           <div class="hero-stickers">
@@ -168,7 +200,8 @@
         <span class="section-tag">02 // PROFILE &amp; AMBITION</span>
         <h2 class="section-title">ABOUT <span class="highlight">BRIAN KABUTEY</span></h2>
         <p class="section-subtitle">
-          Passionate about building reliable software that simplifies complexity, enhances human productivity, and pushes interface boundaries.
+          Passionate about building reliable software that simplifies complexity, enhances human productivity, and
+          pushes interface boundaries.
         </p>
       </div>
 
@@ -181,15 +214,20 @@
           </div>
 
           <p class="bio-text">
-            I am <strong>Brian Ahuma Kabutey</strong>, a dedicated Web and App Developer. My engineering foundation combines clean code logic, resilient backend databases, and human-centric frontends.
+            I am <strong>Brian Ahuma Kabutey</strong>, a dedicated Web and App Developer. My engineering foundation
+            combines clean code logic, resilient backend databases, and human-centric frontends.
           </p>
 
           <p class="bio-text">
-            <strong>My Core Interests:</strong> Integrating autonomous AI models (LLMs, vision models, structured agents) into production web products, building automated data processing pipelines in Python, and experimenting with tactile design systems like Neo-Brutalism.
+            <strong>My Core Interests:</strong> Integrating autonomous AI models (LLMs, vision models, structured
+            agents) into production web products, building automated data processing pipelines in Python, and
+            experimenting with tactile design systems like Neo-Brutalism.
           </p>
 
           <p class="bio-text">
-            <strong>Future Goals:</strong> Architecting next-generation AI-native platforms, mastering the modern React ecosystem (Next.js, state management, full-stack RSC), and engineering distributed microservices that scale effortlessly.
+            <strong>Future Goals:</strong> Architecting next-generation AI-native platforms, mastering the modern React
+            ecosystem (Next.js, state management, full-stack RSC), and engineering distributed microservices that scale
+            effortlessly.
           </p>
 
           <div class="bio-highlights">
@@ -274,7 +312,8 @@
           <div class="project-info">
             <h3 class="project-title">SmartAgent Flow</h3>
             <p class="project-desc">
-              AI orchestration hub built in Python that takes natural language user goals, executes automated multi-step web scraping, and generates summarized PDF reports.
+              AI orchestration hub built in Python that takes natural language user goals, executes automated multi-step
+              web scraping, and generates summarized PDF reports.
             </p>
             <div class="project-tags">
               <span class="neo-badge badge-yellow">Python</span>
@@ -282,10 +321,11 @@
               <span class="neo-badge badge-green">SQLite</span>
             </div>
             <div class="project-links">
-              <a href="https://github.com/kabuteykabutey" target="_blank" rel="noopener noreferrer" class="neo-btn neo-btn-black">
-                GitHub 🐙
+              <a href="https://github.com/kabuteykabutey" target="_blank" rel="noopener noreferrer"
+                class="neo-btn neo-btn-black">
+                GitHub
               </a>
-              <a href="#contact" class="neo-btn neo-btn-cyan">Details 🔍</a>
+              <a href="#contact" class="neo-btn neo-btn-cyan">Details </a>
             </div>
           </div>
         </div>
@@ -299,7 +339,8 @@
           <div class="project-info">
             <h3 class="project-title">OmniData Portal</h3>
             <p class="project-desc">
-              High-performance data management dashboard with PostgreSQL backend, role-based authentication, real-time query metrics, and responsive Neo-Brutalist visualization.
+              High-performance data management dashboard with PostgreSQL backend, role-based authentication, real-time
+              query metrics, and responsive Neo-Brutalist visualization.
             </p>
             <div class="project-tags">
               <span class="neo-badge badge-green">PostgreSQL</span>
@@ -307,10 +348,11 @@
               <span class="neo-badge badge-yellow">HTML &amp; CSS</span>
             </div>
             <div class="project-links">
-              <a href="https://github.com/kabuteykabutey" target="_blank" rel="noopener noreferrer" class="neo-btn neo-btn-black">
-                GitHub 🐙
+              <a href="https://github.com/kabuteykabutey" target="_blank" rel="noopener noreferrer"
+                class="neo-btn neo-btn-black">
+                GitHub
               </a>
-              <a href="#contact" class="neo-btn neo-btn-yellow">Demo ⚡</a>
+              <a href="#contact" class="neo-btn neo-btn-yellow">Demo </a>
             </div>
           </div>
         </div>
@@ -324,7 +366,8 @@
           <div class="project-info">
             <h3 class="project-title">React Dynamic UI Lab</h3>
             <p class="project-desc">
-              An ongoing exploratory suite of interactive React components, exploring custom hooks, optimistic rendering, modular design patterns, and playful state transitions.
+              An ongoing exploratory suite of interactive React components, exploring custom hooks, optimistic
+              rendering, modular design patterns, and playful state transitions.
             </p>
             <div class="project-tags">
               <span class="neo-badge badge-pink">React (Learning)</span>
@@ -332,10 +375,11 @@
               <span class="neo-badge badge-yellow">Modern CSS</span>
             </div>
             <div class="project-links">
-              <a href="https://github.com/kabuteykabutey" target="_blank" rel="noopener noreferrer" class="neo-btn neo-btn-black">
-                GitHub 🐙
+              <a href="https://github.com/kabuteykabutey" target="_blank" rel="noopener noreferrer"
+                class="neo-btn neo-btn-black">
+                GitHub
               </a>
-              <a href="#contact" class="neo-btn neo-btn-green">Preview 🧪</a>
+              <a href="#contact" class="neo-btn neo-btn-green">Preview </a>
             </div>
           </div>
         </div>
@@ -345,10 +389,12 @@
       <div class="github-repos-container" id="github-repos">
         <div class="github-header">
           <div class="github-title-wrap">
-            <img src="https://github.com/kabuteykabutey.png" alt="Brian Ahuma Kabutey GitHub Avatar" class="github-avatar" onerror="this.src='https://avatars.githubusercontent.com/u/9919?v=4'" />
+            <img src="https://github.com/kabuteykabutey.png" alt="Brian Ahuma Kabutey GitHub Avatar"
+              class="github-avatar" onerror="this.src='https://avatars.githubusercontent.com/u/9919?v=4'" />
             <div>
               <h3 style="font-size: 1.6rem; text-transform: uppercase;">
-                GitHub Repositories (<a href="https://github.com/kabuteykabutey" target="_blank" rel="noopener noreferrer" style="color: var(--blue); text-decoration: underline;">@kabuteykabutey</a>)
+                GitHub Repositories (<a href="https://github.com/kabuteykabutey" target="_blank"
+                  rel="noopener noreferrer" style="color: var(--blue); text-decoration: underline;">@kabuteykabutey</a>)
               </h3>
               <p style="font-size: 0.9rem; color: #555; margin-bottom: 0;">
                 Live repositories fetched in real-time from Brian's GitHub profile.
@@ -358,8 +404,10 @@
 
           <div style="display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap;">
             <span class="neo-badge badge-yellow" id="github-repo-count">Loading Repos...</span>
-            <input type="text" id="repo-search-input" class="neo-input" placeholder="🔍 Filter repos..." style="width: 220px; padding: 0.45rem 0.75rem; font-size: 0.85rem;" />
-            <a href="https://github.com/kabuteykabutey" target="_blank" rel="noopener noreferrer" class="neo-btn neo-btn-black" style="padding: 0.45rem 0.9rem; font-size: 0.85rem;">
+            <input type="text" id="repo-search-input" class="neo-input" placeholder="🔍 Filter repos..."
+              style="width: 220px; padding: 0.45rem 0.75rem; font-size: 0.85rem;" />
+            <a href="https://github.com/kabuteykabutey" target="_blank" rel="noopener noreferrer"
+              class="neo-btn neo-btn-black" style="padding: 0.45rem 0.9rem; font-size: 0.85rem;">
               Visit GitHub Profile ↗
             </a>
           </div>
@@ -379,9 +427,11 @@
     <div class="container">
       <div class="section-header">
         <span class="section-tag" style="background: var(--black); color: var(--yellow);">05 // LEAVE YOUR MARK</span>
-        <h2 class="section-title">THE DIGITAL <span class="highlight" style="background: var(--white);">GUESTBOOK</span></h2>
+        <h2 class="section-title">THE DIGITAL <span class="highlight" style="background: var(--white);">GUESTBOOK</span>
+        </h2>
         <p class="section-subtitle" style="color: #222;">
-          Visiting Brian's portfolio? Drop your name, choose your ink, and use your mouse or finger to draw your free-hand signature!
+          Visiting Brian's portfolio? Drop your name, choose your ink, and use your mouse or finger to draw your
+          free-hand signature!
         </p>
       </div>
 
@@ -404,13 +454,16 @@
           <div class="canvas-toolbar">
             <div class="color-picker-group">
               <span style="font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700;">INK:</span>
-              <button type="button" class="color-option color-black active" data-color="#121212" title="Black Ink"></button>
-              <button type="button" class="color-option color-blue" data-color="#2563eb" title="Royal Blue Ink"></button>
+              <button type="button" class="color-option color-black active" data-color="#121212"
+                title="Black Ink"></button>
+              <button type="button" class="color-option color-blue" data-color="#2563eb"
+                title="Royal Blue Ink"></button>
               <button type="button" class="color-option color-purple" data-color="#7928ca" title="Purple Ink"></button>
               <button type="button" class="color-option color-pink" data-color="#ff3366" title="Hot Pink Ink"></button>
             </div>
 
-            <button type="button" class="neo-btn neo-btn-pink" id="clear-signature-btn" style="padding: 0.4rem 0.8rem; font-size: 0.8rem;">
+            <button type="button" class="neo-btn neo-btn-pink" id="clear-signature-btn"
+              style="padding: 0.4rem 0.8rem; font-size: 0.8rem;">
               🧹 Clear Pad
             </button>
           </div>
@@ -426,8 +479,9 @@
             <input type="text" id="guest-role" class="neo-input" placeholder="e.g. Founder, Developer, Collaborator" />
           </div>
 
-          <button type="button" class="neo-btn neo-btn-green" id="stamp-signature-btn" style="width: 100%; font-size: 1.05rem; padding: 0.85rem;">
-            Stamp Signature into Guestbook 🌟
+          <button type="button" class="neo-btn neo-btn-green" id="stamp-signature-btn"
+            style="width: 100%; font-size: 1.05rem; padding: 0.85rem;">
+            Stamp Signature into Guestbook
           </button>
         </div>
 
@@ -463,33 +517,54 @@
           </div>
 
           <p style="font-size: 1.05rem; line-height: 1.7; color: #333;">
-            Looking to launch an impactful web application, implement an AI-driven automation workflow, or build scalable Python services? Let's team up.
+            Looking to launch an impactful web application, implement an AI-driven automation workflow, or build
+            scalable Python services? Let's team up.
           </p>
 
           <div class="contact-details">
             <div class="contact-row">
-              <div class="contact-icon">📧</div>
+              <div class="contact-icon">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
+                  <path
+                    d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+                </svg>
+              </div>
               <div>
-                <div style="font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700; color: #555;">EMAIL ADDRESS</div>
-                <a href="mailto:briankabutey10@gmail.com" class="copy-email-btn" style="font-weight: 800; text-decoration: underline;" title="Click to copy email">
-                  briankabutey10@gmail.com 📋
+                <div style="font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700; color: #555;">EMAIL
+                  ADDRESS</div>
+                <a href="mailto:briankabutey10@gmail.com" class="copy-email-btn"
+                  style="font-weight: 800; text-decoration: underline;" title="Click to copy email">
+                  briankabutey10@gmail.com
                 </a>
               </div>
             </div>
 
             <div class="contact-row">
-              <div class="contact-icon">⚡</div>
+              <div class="contact-icon">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
+                  <path
+                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z" />
+                </svg>
+              </div>
               <div>
-                <div style="font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700; color: #555;">ROLE &amp; AVAILABILITY</div>
+                <div style="font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700; color: #555;">ROLE &amp;
+                  AVAILABILITY</div>
                 <div style="font-weight: 800;">Freelance Web &amp; App Developer (Remote / Global)</div>
               </div>
             </div>
 
             <div class="contact-row">
-              <div class="contact-icon">🐙</div>
+              <div class="contact-icon">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
+                </svg>
+              </div>
               <div>
-                <div style="font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700; color: #555;">GITHUB PROFILE</div>
-                <a href="https://github.com/kabuteykabutey" target="_blank" rel="noopener noreferrer" style="font-weight: 800; text-decoration: underline;">
+                <div style="font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700; color: #555;">GITHUB
+                  PROFILE</div>
+                <a href="https://github.com/kabuteykabutey" target="_blank" rel="noopener noreferrer"
+                  style="font-weight: 800; text-decoration: underline;">
                   github.com/kabuteykabutey ↗
                 </a>
               </div>
@@ -497,15 +572,49 @@
           </div>
 
           <div style="margin-top: 2rem;">
-            <div style="font-family: var(--font-mono); font-size: 0.85rem; font-weight: 800; text-transform: uppercase; margin-bottom: 0.75rem;">
+            <div
+              style="font-family: var(--font-mono); font-size: 0.85rem; font-weight: 800; text-transform: uppercase; margin-bottom: 0.75rem;">
               Connect with Brian on Socials:
             </div>
             <div class="footer-social-links">
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="footer-social-btn">LinkedIn</a>
-              <a href="https://github.com/kabuteykabutey" target="_blank" rel="noopener noreferrer" class="footer-social-btn">GitHub</a>
-              <a href="https://x.com/KabuteyKabutey" target="_blank" rel="noopener noreferrer" class="footer-social-btn">X / Twitter</a>
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="footer-social-btn">Instagram</a>
-              <a href="https://www.facebook.com/share/18XKCK5Wfu/" target="_blank" rel="noopener noreferrer" class="footer-social-btn">Facebook (Luh Miles)</a>
+              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="footer-social-btn">
+                <svg class="app-icon" viewBox="0 0 24 24" width="17" height="17" fill="currentColor" aria-hidden="true">
+                  <path
+                    d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.3a1.65 1.65 0 0 0-1.66 1.65 1.66 1.66 0 0 0 1.66 1.66 1.66 1.66 0 0 0 1.65-1.66A1.66 1.66 0 0 0 7.83 6.3z" />
+                </svg>
+                <span>LinkedIn</span>
+              </a>
+              <a href="https://github.com/kabuteykabutey" target="_blank" rel="noopener noreferrer"
+                class="footer-social-btn">
+                <svg class="app-icon" viewBox="0 0 24 24" width="17" height="17" fill="currentColor" aria-hidden="true">
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
+                </svg>
+                <span>GitHub</span>
+              </a>
+              <a href="https://x.com/KabuteyKabutey" target="_blank" rel="noopener noreferrer"
+                class="footer-social-btn">
+                <svg class="app-icon" viewBox="0 0 24 24" width="17" height="17" fill="currentColor" aria-hidden="true">
+                  <path
+                    d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                </svg>
+                <span>X / Twitter</span>
+              </a>
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="footer-social-btn">
+                <svg class="app-icon" viewBox="0 0 24 24" width="17" height="17" fill="currentColor" aria-hidden="true">
+                  <path
+                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                </svg>
+                <span>Instagram</span>
+              </a>
+              <a href="https://www.facebook.com/share/18XKCK5Wfu/" target="_blank" rel="noopener noreferrer"
+                class="footer-social-btn">
+                <svg class="app-icon" viewBox="0 0 24 24" width="17" height="17" fill="currentColor" aria-hidden="true">
+                  <path
+                    d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                </svg>
+                <span>Facebook (Luh Miles)</span>
+              </a>
             </div>
           </div>
         </div>
@@ -533,16 +642,21 @@
 
             <div class="form-group">
               <label for="contact-subject">Project Topic / Service</label>
-              <input type="text" id="contact-subject" class="neo-input" placeholder="e.g. Web App Development or AI Integration" />
+              <input type="text" id="contact-subject" class="neo-input"
+                placeholder="e.g. Web App Development or AI Integration" />
             </div>
 
             <div class="form-group">
               <label for="contact-message">Project Description &amp; Requirements *</label>
-              <textarea id="contact-message" class="neo-input" placeholder="Describe what you want to build, timelines, and goals..." required></textarea>
+              <textarea id="contact-message" class="neo-input"
+                placeholder="Describe what you want to build, timelines, and goals..." required></textarea>
             </div>
 
-            <button type="submit" class="neo-btn neo-btn-yellow" style="width: 100%; font-size: 1.1rem; padding: 0.9rem;">
-              Send Message to Brian 🚀
+            <input type="text" name="_honey" id="contact-honey" style="display:none;" tabindex="-1" autocomplete="off" />
+
+            <button type="submit" class="neo-btn neo-btn-yellow"
+              style="width: 100%; font-size: 1.1rem; padding: 0.9rem;">
+              Send Message to Brian
             </button>
           </form>
         </div>
@@ -553,9 +667,15 @@
         <div>
           © 2026 <strong>Brian Ahuma Kabutey</strong>. Built in authentic Neo-Brutalism style. All rights reserved.
         </div>
-        <button class="back-to-top" id="back-to-top">
-          ↑ Back to Top
-        </button>
+        <div style="display: flex; gap: 0.85rem; align-items: center;">
+          <a href="admin.html" class="admin-portal-link" title="Admin CMS Portal"
+            style="font-family: var(--font-mono); font-size: 0.78rem; color: #71717a; text-decoration: none; padding: 0.25rem 0.5rem; border: 1px dashed #3f3f46; border-radius: 3px; display: inline-flex; align-items: center; gap: 0.3rem;">
+            🔒 Admin
+          </a>
+          <button class="back-to-top" id="back-to-top">
+            ↑ Back to Top
+          </button>
+        </div>
       </div>
     </div>
   </footer>
@@ -563,7 +683,8 @@
   <!-- ==========================================================================
        MODAL: WRITE NEW BLOG POST
        ========================================================================== -->
-  <div class="modal-backdrop" id="blog-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-post-title">
+  <div class="modal-backdrop" id="blog-modal-backdrop" role="dialog" aria-modal="true"
+    aria-labelledby="modal-post-title">
     <div class="modal-window">
       <div class="modal-header">
         <h3 id="modal-post-title" style="text-transform: uppercase; font-size: 1.25rem;">✍️ Write a New Blog Post</h3>
@@ -573,7 +694,8 @@
         <form id="new-post-form">
           <div class="form-group">
             <label for="post-title">Article Title *</label>
-            <input type="text" id="post-title" class="neo-input" placeholder="e.g. Exploring Fast Neural Pipelines in Python" required />
+            <input type="text" id="post-title" class="neo-input"
+              placeholder="e.g. Exploring Fast Neural Pipelines in Python" required />
           </div>
 
           <div class="form-group">
@@ -589,16 +711,19 @@
 
           <div class="form-group">
             <label for="post-excerpt">Short Summary / Hook *</label>
-            <input type="text" id="post-excerpt" class="neo-input" placeholder="Brief 1-2 sentence hook for the preview card..." required />
+            <input type="text" id="post-excerpt" class="neo-input"
+              placeholder="Brief 1-2 sentence hook for the preview card..." required />
           </div>
 
           <div class="form-group">
             <label for="post-content">Full Post Content * (Paragraphs separated by double line breaks)</label>
-            <textarea id="post-content" class="neo-input" style="min-height: 180px;" placeholder="Write your full insights here..." required></textarea>
+            <textarea id="post-content" class="neo-input" style="min-height: 180px;"
+              placeholder="Write your full insights here..." required></textarea>
           </div>
 
-          <button type="submit" class="neo-btn neo-btn-green" style="width: 100%; font-size: 1.05rem; padding: 0.85rem;">
-            Publish Post to Feed 🚀
+          <button type="submit" class="neo-btn neo-btn-green"
+            style="width: 100%; font-size: 1.05rem; padding: 0.85rem;">
+            Publish Post to Feed
           </button>
         </form>
       </div>
@@ -615,7 +740,8 @@
         <button class="modal-close-btn" id="read-post-modal-close" aria-label="Close modal">✕</button>
       </div>
       <div class="modal-body">
-        <div id="read-post-meta" style="margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;"></div>
+        <div id="read-post-meta"
+          style="margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;"></div>
         <div id="read-post-content" style="line-height: 1.75; font-size: 1.05rem; color: #222;"></div>
       </div>
     </div>
@@ -625,9 +751,12 @@
   <div class="toast-container" aria-live="polite"></div>
 
   <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-config.js"></script>
   <script src="js/app.js"></script>
   <script src="js/signature.js"></script>
   <script src="js/github.js"></script>
   <script src="js/blog.js"></script>
 </body>
+
 </html>
