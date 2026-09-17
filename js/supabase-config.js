@@ -4,11 +4,12 @@
    ========================================================================== */
 
 (function () {
-  // CONFIGURATION: Replace with your actual Supabase Project URL & Anon Key
-  // Found in your Supabase Dashboard -> Project Settings -> API
+  const rawUrl = window.SUPABASE_URL || 'https://czqmsmkwrnmpqmylpwrt.supabase.co';
+  const cleanUrl = rawUrl.replace(/\/rest\/v1\/?$/, '').replace(/\/+$/, '');
+
   const SUPABASE_CONFIG = {
-    url: window.SUPABASE_URL || 'https://YOUR_PROJECT_ID.supabase.co',
-    anonKey: window.SUPABASE_ANON_KEY || 'YOUR_ANON_KEY'
+    url: cleanUrl,
+    anonKey: window.SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN6cW1zbWt3cm5tcHFteWxwd3J0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk2NzE1OTMsImV4cCI6MjEwNTI0NzU5M30.u2ILGYYt7WYLcIJPIZhZwZU7SyPE2HX_qTQswPSlYKc'
   };
 
   // Local storage keys for fallback mode
