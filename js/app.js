@@ -1,5 +1,6 @@
 /* ==========================================================================
    MAIN APPLICATION CONTROLLER & USER INTERACTIONS
+   Minimalist + Modern + Bento Grid Animations
    ========================================================================== */
 
 // Global Toast Notification System
@@ -15,17 +16,17 @@ window.showToast = function (message, type = 'info') {
   toast.className = `neo-toast ${type}`;
 
   const icon = type === 'success' ? '✅' : type === 'error' ? '⚠️' : '⚡';
-  toast.innerHTML = `<span>${icon}</span><span>${escapeHtml(message)}</span>`;
+  toast.innerHTML = `<span style="font-size: 1.1rem;">${icon}</span><span>${escapeHtml(message)}</span>`;
 
   container.appendChild(toast);
 
   setTimeout(() => {
-    toast.style.transition = 'all 0.25s ease-out';
+    toast.style.transition = 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)';
     toast.style.opacity = '0';
-    toast.style.transform = 'translateX(50px)';
+    toast.style.transform = 'translateY(12px) scale(0.95)';
     setTimeout(() => {
       toast.remove();
-    }, 250);
+    }, 300);
   }, 3500);
 };
 
@@ -39,26 +40,62 @@ function escapeHtml(str) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Mobile Navigation Toggle
+  // ==========================================================================
+  // SCROLL REVEAL (SUBTLE ANIMATIONS)
+  // ==========================================================================
+  const revealElements = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -40px 0px'
+    });
+
+    revealElements.forEach(el => revealObserver.observe(el));
+  } else {
+    revealElements.forEach(el => el.classList.add('revealed'));
+  }
+
+  // ==========================================================================
+  // MOBILE NAVIGATION DRAWER TOGGLE
+  // ==========================================================================
   const mobileToggle = document.getElementById('mobile-nav-toggle');
   const navLinks = document.getElementById('nav-links');
 
   if (mobileToggle && navLinks) {
     mobileToggle.addEventListener('click', () => {
-      navLinks.classList.toggle('active');
-      mobileToggle.textContent = navLinks.classList.contains('active') ? '✕' : '☰';
+      const isOpen = navLinks.classList.toggle('active');
+      mobileToggle.textContent = isOpen ? '✕' : '☰';
+      mobileToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
     });
 
-    // Close menu when clicking link
+    // Close menu when clicking any nav link
     navLinks.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => {
         navLinks.classList.remove('active');
         mobileToggle.textContent = '☰';
+        mobileToggle.setAttribute('aria-expanded', 'false');
       });
+    });
+
+    // Close if clicked outside
+    document.addEventListener('click', (e) => {
+      if (!navLinks.contains(e.target) && !mobileToggle.contains(e.target) && navLinks.classList.contains('active')) {
+        navLinks.classList.remove('active');
+        mobileToggle.textContent = '☰';
+      }
     });
   }
 
-  // Active Navigation Link Highlighting on Scroll
+  // ==========================================================================
+  // ACTIVE NAVIGATION LINK HIGHLIGHTING ON SCROLL
+  // ==========================================================================
   const sections = document.querySelectorAll('section[id], footer[id]');
   const navItems = document.querySelectorAll('.nav-link');
 
@@ -83,13 +120,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
   window.addEventListener('scroll', updateActiveNav, { passive: true });
 
-  // Contact Form Submission
+  // ==========================================================================
+  // CONTACT FORM SUBMISSION & SPAM PROTECTION
+  // ==========================================================================
   const contactForm = document.getElementById('contact-form');
   if (contactForm) {
     contactForm.addEventListener('submit', async (e) => {
       e.preventDefault();
 
-      // Spam Bot Honeypot Check
+      // Honeypot spam check
       const honey = document.getElementById('contact-honey');
       if (honey && honey.value) {
         contactForm.reset();
@@ -107,7 +146,6 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      // Email format check
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailRegex.test(email)) {
         window.showToast('Please enter a valid email address!', 'error');
@@ -117,7 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const submitBtn = contactForm.querySelector('button[type="submit"]');
       const originalText = submitBtn.innerHTML;
       submitBtn.disabled = true;
-      submitBtn.innerHTML = '⚡ TRANSMITTING...';
+      submitBtn.innerHTML = '⚡ Sending...';
 
       const payload = {
         name,
@@ -127,12 +165,12 @@ document.addEventListener('DOMContentLoaded', () => {
       };
 
       try {
-        // 1. Save to Database / Admin Inbox
+        // 1. Save to Supabase Cloud Database
         if (window.portfolioDB) {
           await window.portfolioDB.saveContactMessage(payload);
         }
 
-        // 2. Transmit to external endpoint (Formspree/Resend/Webhook) if configured
+        // 2. Transmit to external endpoint if configured
         if (window.CONTACT_ENDPOINT) {
           await fetch(window.CONTACT_ENDPOINT, {
             method: 'POST',
@@ -141,10 +179,10 @@ document.addEventListener('DOMContentLoaded', () => {
           });
         }
 
-        window.showToast(`🔥 Thanks ${name}! Brian received your message and will respond shortly.`, 'success');
+        window.showToast(`✨ Thanks ${name}! Brian received your message and will respond promptly.`, 'success');
         contactForm.reset();
       } catch (err) {
-        window.showToast('Message saved to inbox! Brian will contact you shortly.', 'info');
+        window.showToast('Message saved! Brian will contact you shortly.', 'info');
         contactForm.reset();
       } finally {
         submitBtn.disabled = false;
@@ -153,7 +191,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Copy Email to Clipboard Feature
+  // ==========================================================================
+  // COPY EMAIL TO CLIPBOARD
+  // ==========================================================================
   const copyEmailBtns = document.querySelectorAll('.copy-email-btn');
   copyEmailBtns.forEach(btn => {
     btn.addEventListener('click', (e) => {
@@ -167,7 +207,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Back to Top Button
+  // ==========================================================================
+  // BACK TO TOP
+  // ==========================================================================
   const backToTopBtn = document.getElementById('back-to-top');
   if (backToTopBtn) {
     backToTopBtn.addEventListener('click', () => {
@@ -178,7 +220,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Marquee pause on hover
+  // ==========================================================================
+  // MARQUEE PAUSE ON HOVER
+  // ==========================================================================
   const marquee = document.querySelector('.marquee-content');
   if (marquee) {
     marquee.addEventListener('mouseenter', () => {
@@ -190,82 +234,40 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ==========================================================================
-  // BRIAN.DEV INTERACTIVE REACTIVE LOGO
+  // MODERN INTERACTIVE LOGO (BRIAN.DEV)
   // ==========================================================================
   const siteLogo = document.getElementById('site-logo') || document.querySelector('.logo-stamp');
   if (siteLogo) {
-    const logoThemes = [
-      'linear-gradient(135deg, #c28b00 0%, #0c7c8c 50%, #9b2242 100%)', // Rich Amber, Teal, Berry
-      'linear-gradient(135deg, #7928ca 0%, #ff0080 50%, #ff4d4d 100%)', // Synthwave Magenta & Crimson
-      'linear-gradient(135deg, #059669 0%, #0284c7 50%, #6366f1 100%)', // Emerald, Cyan & Indigo
-      'linear-gradient(135deg, #ea580c 0%, #eab308 50%, #10b981 100%)', // Radiant Sunset & Mint
-      'linear-gradient(135deg, #0284c7 0%, #8b5cf6 50%, #ec4899 100%)'  // Electric Sky, Violet & Pink
-    ];
-    let currentThemeIdx = 0;
+    const dotColors = ['#6366f1', '#8b5cf6', '#06b6d4', '#10b981', '#f59e0b', '#f43f5e'];
+    let colorIdx = 0;
 
-    function triggerLogoReaction(e) {
-      if (e) e.preventDefault();
+    siteLogo.addEventListener('click', (e) => {
+      e.preventDefault();
 
-      // Haptic feedback on supported mobile devices
       if ('vibrate' in navigator) {
-        try { navigator.vibrate([18, 30, 22]); } catch (err) {}
+        try { navigator.vibrate(15); } catch (err) {}
       }
 
-      // Smooth scroll to top of page
       window.scrollTo({ top: 0, behavior: 'smooth' });
 
-      // Re-trigger bounce pop animation
-      siteLogo.classList.remove('logo-reacting');
-      void siteLogo.offsetWidth; // Force reflow
-      siteLogo.classList.add('logo-reacting');
-
-      // Cycle background gradient theme
-      currentThemeIdx = (currentThemeIdx + 1) % logoThemes.length;
-      siteLogo.style.background = logoThemes[currentThemeIdx];
-      siteLogo.style.backgroundSize = '200% 200%';
-
-      // Spawn colorful spark particles around the logo
-      const rect = siteLogo.getBoundingClientRect();
-      const clickX = e && e.clientX ? e.clientX - rect.left : rect.width / 2;
-      const clickY = e && e.clientY ? e.clientY - rect.top : rect.height / 2;
-      
-      const sparkChars = ['✦', '★', '⚡', '●', '▲', '✨'];
-      const sparkColors = ['#facc15', '#00f0ff', '#ff3366', '#22c55e', '#a855f7'];
-
-      for (let i = 0; i < 6; i++) {
-        const spark = document.createElement('span');
-        spark.className = 'logo-sparkle';
-        spark.textContent = sparkChars[i % sparkChars.length];
-        spark.style.color = sparkColors[i % sparkColors.length];
-        spark.style.left = `${clickX}px`;
-        spark.style.top = `${clickY}px`;
-
-        const angle = (i / 6) * 2 * Math.PI + (Math.random() * 0.4 - 0.2);
-        const distance = 30 + Math.random() * 35;
-        const tx = Math.cos(angle) * distance;
-        const ty = Math.sin(angle) * distance - 10;
-        const rot = (Math.random() * 180 - 90) + 'deg';
-
-        spark.style.setProperty('--spark-tx', `${tx}px`);
-        spark.style.setProperty('--spark-ty', `${ty}px`);
-        spark.style.setProperty('--spark-rot', rot);
-
-        siteLogo.appendChild(spark);
-        setTimeout(() => spark.remove(), 750);
+      // Cycle dot accent color
+      colorIdx = (colorIdx + 1) % dotColors.length;
+      const logoDot = siteLogo.querySelector('.logo-dot');
+      if (logoDot) {
+        logoDot.style.color = dotColors[colorIdx];
+        logoDot.style.textShadow = `0 0 12px ${dotColors[colorIdx]}`;
+        setTimeout(() => {
+          if (logoDot) logoDot.style.textShadow = 'none';
+        }, 600);
       }
-
-      setTimeout(() => {
-        siteLogo.classList.remove('logo-reacting');
-      }, 500);
-    }
-
-    siteLogo.addEventListener('click', triggerLogoReaction);
+    });
   }
 
   // ==========================================================================
-  // UNIVERSAL TACTILE BUTTON TAP & PRESS FEEDBACK
+  // UNIVERSAL MODERN TACTILE PRESS FEEDBACK
   // ==========================================================================
   const buttonSelector = [
+    '.btn',
     '.neo-btn',
     'button',
     '.social-pill',
@@ -286,15 +288,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     targetBtn.classList.add('btn-pressed');
 
-    // Haptic tick on touch devices
     if (e.pointerType === 'touch' && 'vibrate' in navigator) {
-      try { navigator.vibrate(12); } catch (err) {}
+      try { navigator.vibrate(10); } catch (err) {}
     }
 
     const removePress = () => {
       setTimeout(() => {
         targetBtn.classList.remove('btn-pressed');
-      }, 120);
+      }, 100);
       window.removeEventListener('pointerup', removePress);
       window.removeEventListener('pointercancel', removePress);
     };

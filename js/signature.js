@@ -20,7 +20,7 @@
 
   // Signature State
   let isDrawing = false;
-  let currentColor = '#121212';
+  let currentColor = '#f4f4f6';
   let currentLineWidth = 3.5;
   let hasDrawn = false;
   let lastX = 0;
@@ -128,7 +128,7 @@
     btn.addEventListener('click', () => {
       colorOptions.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      currentColor = btn.getAttribute('data-color') || '#121212';
+      currentColor = btn.getAttribute('data-color') || '#f4f4f6';
     });
   });
 

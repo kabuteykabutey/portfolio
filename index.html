@@ -14,11 +14,11 @@
     content="Web & App Developer skilled in Python, JavaScript, Database Architecture, AI Integration, and React." />
   <meta property="og:type" content="website" />
 
-  <!-- Google Fonts: Space Grotesk, Syne, JetBrains Mono, Permanent Marker (mobile graffiti) -->
+  <!-- Google Fonts: Inter & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700;800&family=Permanent+Marker&family=Space+Grotesk:wght@500;600;700;800&family=Syne:wght@700;800;900&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap"
     rel="stylesheet" />
 
   <!-- Stylesheet -->
@@ -28,7 +28,7 @@
 <body>
 
   <!-- ==========================================================================
-       HEADER & NAVIGATION
+       HEADER & FROSTED GLASS NAVIGATION
        ========================================================================== -->
   <header class="site-header">
     <div class="container nav-container">
@@ -43,16 +43,16 @@
       </div>
 
       <nav class="nav-links" id="nav-links">
-        <a href="#home" class="nav-link active">01 // Home</a>
-        <a href="#about" class="nav-link">02 // About</a>
-        <a href="#blog" class="nav-link">03 // Blog</a>
-        <a href="#projects" class="nav-link">04 // Projects</a>
-        <a href="#guestbook" class="nav-link">05 // Guestbook</a>
-        <a href="#contact" class="nav-link">06 // Contact</a>
+        <a href="#home" class="nav-link active">Home</a>
+        <a href="#about" class="nav-link">About</a>
+        <a href="#blog" class="nav-link">Blog</a>
+        <a href="#projects" class="nav-link">Projects</a>
+        <a href="#guestbook" class="nav-link">Guestbook</a>
+        <a href="#contact" class="nav-link">Contact</a>
       </nav>
 
       <div class="nav-cta">
-        <a href="#contact" class="neo-btn neo-btn-yellow" id="nav-hire-btn">Hire Me </a>
+        <a href="#contact" class="btn btn-primary" id="nav-hire-btn">Hire Me ↗</a>
       </div>
 
       <button class="mobile-toggle" id="mobile-nav-toggle" aria-label="Toggle Navigation">
@@ -62,89 +62,99 @@
   </header>
 
   <!-- ==========================================================================
-       HERO SECTION (HOMEPAGE)
+       HERO SECTION (BENTO GRID HERO)
        ========================================================================== -->
   <section class="hero-section" id="home">
-    <div class="container hero-grid">
-      <div class="hero-content">
-        <div class="hero-tag"> FREELANCE WEB &amp; APP DEVELOPER</div>
-        <h1 class="hero-title">
-          HELLO, I'M <span class="highlight-yellow">BRIAN AHUMA</span> <br />
-          BUILDING <span class="highlight-cyan">ROBUST APPS</span> &amp; AI EXPERIENCES.
-        </h1>
-        <p class="hero-desc">
-          Versatile software builder with deep experience in <strong>Python</strong>, <strong>JavaScript</strong>,
-          <strong>Databases</strong>, and <strong>Modern AI Integration</strong>, while aggressively leveling up in
-          <strong>React</strong>. Crafting deterministic systems and bold digital interfaces.
-        </p>
-
-        <div class="hero-actions">
-          <a href="#projects" class="neo-btn neo-btn-pink">View Projects </a>
-          <a href="#guestbook" class="neo-btn neo-btn-cyan">Sign Guestbook </a>
-          <a href="#contact" class="neo-btn neo-btn-yellow">Contact Brian </a>
-        </div>
-
-        <div class="hero-socials">
-          <span class="hero-social-label">Connect:</span>
-          <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="social-pill" title="LinkedIn">
-            <svg class="app-icon" viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
-              <path
-                d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.3a1.65 1.65 0 0 0-1.66 1.65 1.66 1.66 0 0 0 1.66 1.66 1.66 1.66 0 0 0 1.65-1.66A1.66 1.66 0 0 0 7.83 6.3z" />
-            </svg>
-            <span>LinkedIn</span>
-          </a>
-          <a href="https://github.com/kabuteykabutey" target="_blank" rel="noopener noreferrer" class="social-pill"
-            title="GitHub">
-            <svg class="app-icon" viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
-              <path fill-rule="evenodd" clip-rule="evenodd"
-                d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
-            </svg>
-            <span>GitHub</span>
-          </a>
-          <a href="https://x.com/KabuteyKabutey" target="_blank" rel="noopener noreferrer" class="social-pill"
-            title="X (Twitter)">
-            <svg class="app-icon" viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
-              <path
-                d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-            </svg>
-            <span>X / Twitter</span>
-          </a>
-          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="social-pill"
-            title="Instagram">
-            <svg class="app-icon" viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
-              <path
-                d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
-            </svg>
-            <span>Instagram</span>
-          </a>
-          <a href="https://www.facebook.com/share/18XKCK5Wfu/" target="_blank" rel="noopener noreferrer"
-            class="social-pill" title="Facebook">
-            <svg class="app-icon" viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
-              <path
-                d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-            </svg>
-            <span>Facebook</span>
-          </a>
-        </div>
-      </div>
-
-      <!-- Hero Visual Sticker Card -->
-      <div class="hero-visual">
-        <div class="hero-card">
-          <div class="card-tape"></div>
-          <div class="hero-photo-frame">
-            <img src="assets/brian-profile.jpg" alt="Brian Ahuma Kabutey - Web & App Developer" class="hero-photo" />
-          </div>
-          <div class="hero-card-meta">
-            <h3>Brian Ahuma Kabutey</h3>
-            <p>Full-Stack / Python / AI Integrator</p>
+    <div class="container">
+      <div class="hero-bento-grid">
+        <!-- Main Intro Card (Col 7) -->
+        <div class="bento-card hero-main-card reveal">
+          <div class="bento-card-glow" style="top: -60px; left: -40px; background: var(--accent-primary);"></div>
+          <div>
+            <div class="hero-tag">
+              <span>✦</span> FREELANCE WEB &amp; APP DEVELOPER
+            </div>
+            <h1 class="hero-title">
+              <span class="gradient-text">Brian Ahuma Kabutey</span><br />
+              <span class="accent-text">Software Engineer</span> &amp; AI Builder
+            </h1>
+            <p class="hero-desc">
+              Crafting high-performance digital systems with deep expertise in <strong>Python</strong>,
+              <strong>JavaScript</strong>,
+              <strong>Database Architecture</strong>, and <strong>Modern AI Integrations</strong>, while rapidly
+              expanding across the <strong>React</strong> ecosystem.
+            </p>
           </div>
 
-          <div class="hero-stickers">
-            <span class="sticker sticker-1">🐍 Python Automation</span>
-            <span class="sticker sticker-2">🤖 LLM Integration</span>
-            <span class="sticker sticker-3">🗄️ SQL &amp; NoSQL</span>
-            <span class="sticker sticker-4">⚛️ Learning React</span>
+          <div class="hero-actions">
+            <a href="#projects" class="btn btn-primary">Featured Projects →</a>
+            <a href="#guestbook" class="btn btn-outline">Digital Guestbook </a>
+            <a href="#contact" class="btn btn-outline">Get in Touch </a>
+          </div>
+        </div>
+
+        <!-- Profile Avatar Tile (Col 5) -->
+        <div class="bento-card hero-profile-card reveal delay-1">
+          <div class="bento-card-glow" style="bottom: -50px; right: -50px; background: var(--accent-secondary);"></div>
+          <div class="profile-avatar-frame">
+            <img src="assets/brian-profile.jpg" alt="Brian Ahuma Kabutey - Web & App Developer" class="hero-photo"
+              onerror="this.src='https://avatars.githubusercontent.com/u/9919?v=4'" />
+          </div>
+          <h2 class="profile-name">Brian Ahuma Kabutey</h2>
+          <p class="profile-role">Full-Stack / Python / AI Integrator</p>
+
+          <div class="profile-pill-stack">
+            <span class="tag badge-indigo">🐍 Python Backend</span>
+            <span class="tag badge-purple">🤖 LLM Orchestration</span>
+            <span class="tag badge-emerald">🗄️ SQL &amp; PostgreSQL</span>
+            <span class="tag badge-amber">⚛️ React &amp; Next.js</span>
+          </div>
+        </div>
+
+        <!-- Quick Stats Tile (Col 7) -->
+        <div class="bento-card hero-stats-card reveal delay-2">
+          <div class="stat-item">
+            <div class="stat-number">Full-Stack</div>
+            <div class="stat-label">Web &amp; Mobile Architecture</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">Python &amp; AI</div>
+            <div class="stat-label">Automation &amp; LLM Pipelines</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">Global</div>
+            <div class="stat-label">Remote Contract Availability</div>
+          </div>
+        </div>
+
+        <!-- Social Links Pill Card (Col 5) -->
+        <div class="bento-card hero-socials-card reveal delay-3">
+          <span style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted);">CONNECT:</span>
+          <div class="social-pills-wrap">
+            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="social-pill"
+              title="LinkedIn">
+              <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true">
+                <path
+                  d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.3a1.65 1.65 0 0 0-1.66 1.65 1.66 1.66 0 0 0 1.66 1.66 1.66 1.66 0 0 0 1.65-1.66A1.66 1.66 0 0 0 7.83 6.3z" />
+              </svg>
+              <span>LinkedIn</span>
+            </a>
+            <a href="https://github.com/kabuteykabutey" target="_blank" rel="noopener noreferrer" class="social-pill"
+              title="GitHub">
+              <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
+              </svg>
+              <span>GitHub</span>
+            </a>
+            <a href="https://x.com/KabuteyKabutey" target="_blank" rel="noopener noreferrer" class="social-pill"
+              title="X (Twitter)">
+              <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true">
+                <path
+                  d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+              </svg>
+              <span>X</span>
+            </a>
           </div>
         </div>
       </div>
@@ -152,122 +162,149 @@
   </section>
 
   <!-- ==========================================================================
-       MARQUEE TICKER
+       MINIMALIST MARQUEE TICKER
        ========================================================================== -->
   <div class="marquee-container" aria-hidden="true">
     <div class="marquee-content">
       <div class="marquee-item">
-        <span>★ WEB DEVELOPER</span>
+        <span>Web &amp; App Development</span>
         <span class="star">✦</span>
-        <span>APP DEVELOPER</span>
+        <span>Python Services &amp; APIs</span>
         <span class="star">✦</span>
-        <span>PYTHON SPECIALIST</span>
+        <span>Autonomous AI Integrations</span>
         <span class="star">✦</span>
-        <span>DATABASE ARCHITECT</span>
+        <span>Modern Database Architecture</span>
         <span class="star">✦</span>
-        <span>AI INTEGRATION</span>
+        <span>Interactive React Interfaces</span>
         <span class="star">✦</span>
-        <span>LEARNING REACT</span>
-        <span class="star">✦</span>
-        <span>AVAILABLE FOR FREELANCE &amp; CONTRACTS</span>
+        <span>Available for Remote Contracts</span>
         <span class="star">✦</span>
       </div>
       <div class="marquee-item">
-        <span>★ WEB DEVELOPER</span>
+        <span>Web &amp; App Development</span>
         <span class="star">✦</span>
-        <span>APP DEVELOPER</span>
+        <span>Python Services &amp; APIs</span>
         <span class="star">✦</span>
-        <span>PYTHON SPECIALIST</span>
+        <span>Autonomous AI Integrations</span>
         <span class="star">✦</span>
-        <span>DATABASE ARCHITECT</span>
+        <span>Modern Database Architecture</span>
         <span class="star">✦</span>
-        <span>AI INTEGRATION</span>
+        <span>Interactive React Interfaces</span>
         <span class="star">✦</span>
-        <span>LEARNING REACT</span>
-        <span class="star">✦</span>
-        <span>AVAILABLE FOR FREELANCE &amp; CONTRACTS</span>
+        <span>Available for Remote Contracts</span>
         <span class="star">✦</span>
       </div>
     </div>
   </div>
 
   <!-- ==========================================================================
-       ABOUT ME SECTION
+       ABOUT ME SECTION (BENTO GRID)
        ========================================================================== -->
   <section class="section-about" id="about">
     <div class="container">
-      <div class="section-header">
+      <div class="section-header reveal">
         <span class="section-tag">02 // PROFILE &amp; AMBITION</span>
-        <h2 class="section-title">ABOUT <span class="highlight">BRIAN KABUTEY</span></h2>
+        <h2 class="section-title">ENGINEERING <span class="highlight">PHILOSOPHY</span></h2>
         <p class="section-subtitle">
           Passionate about building reliable software that simplifies complexity, enhances human productivity, and
           pushes interface boundaries.
         </p>
       </div>
 
-      <div class="about-grid">
-        <!-- Bio Card -->
-        <div class="neo-box bio-card">
-          <div class="bio-header">
-            <h3 class="bio-title">Developer Blueprint</h3>
-            <span class="neo-badge badge-green">STATUS: FREELANCER</span>
+      <div class="about-bento-grid">
+        <!-- Bio Card (Col 7) -->
+        <div class="bento-card about-bio-card reveal">
+          <div class="bento-card-title">
+            <span>Developer Blueprint</span>
+            <span class="tag badge-emerald">Available for Hire</span>
           </div>
 
           <p class="bio-text">
-            I am <strong>Brian Ahuma Kabutey</strong>, a dedicated Web and App Developer. My engineering foundation
-            combines clean code logic, resilient backend databases, and human-centric frontends.
+            I am <strong>Brian Ahuma Kabutey</strong>, a versatile software builder specializing in end-to-end web and
+            mobile applications. My engineering approach couples deterministic backend pipelines with modern, fluid user
+            interfaces.
           </p>
 
           <p class="bio-text">
-            <strong>My Core Interests:</strong> Integrating autonomous AI models (LLMs, vision models, structured
-            agents) into production web products, building automated data processing pipelines in Python, and
-            experimenting with tactile design systems like Neo-Brutalism.
+            I believe great software is built at the intersection of clear architecture and thoughtful details—from
+            responsive layout choreography to resilient database schemas that gracefully handle scale.
           </p>
+        </div>
+
+        <!-- Focus & Interests Card (Col 5) -->
+        <div class="bento-card about-focus-card reveal delay-1">
+          <div class="bento-card-title">
+            <span>Core Capabilities</span>
+            <span class="tag badge-indigo">Specializations</span>
+          </div>
 
           <p class="bio-text">
-            <strong>Future Goals:</strong> Architecting next-generation AI-native platforms, mastering the modern React
-            ecosystem (Next.js, state management, full-stack RSC), and engineering distributed microservices that scale
-            effortlessly.
+            <strong>AI &amp; Automation:</strong> Integrating LLMs, autonomous tool-use agents, and prompt orchestration
+            into production products.
           </p>
+          <p class="bio-text">
+            <strong>Data Engineering:</strong> Constructing automated data pipelines, schema migrations, and REST APIs
+            with Python, FastAPI, and PostgreSQL.
+          </p>
+        </div>
 
-          <div class="bio-highlights">
-            <div class="highlight-box">
-              <div class="box-label">Immediate Availability</div>
-              <div class="box-value">Open for Freelance</div>
+        <!-- Future Goals Card (Col 6) -->
+        <div class="bento-card about-goals-card reveal delay-2">
+          <div class="bento-card-title">
+            <span>Future Ambition</span>
+            <span class="tag badge-amber">Growth Vector</span>
+          </div>
+
+          <p class="bio-text">
+            Architecting next-generation AI-native platforms, mastering the advanced React ecosystem (Next.js server
+            components, optimistic mutations), and engineering distributed microservices that scale effortlessly.
+          </p>
+        </div>
+
+        <!-- Quick Metrics Card (Col 6) -->
+        <div class="bento-card about-metrics-card reveal delay-3">
+          <div class="bento-card-title">
+            <span>Operational Highlights</span>
+            <span class="tag badge-purple">Real-Time Status</span>
+          </div>
+
+          <div class="metrics-row-grid">
+            <div class="metric-tile">
+              <div class="metric-tile-label">Availability</div>
+              <div class="metric-tile-value">Open for Contracts</div>
             </div>
-            <div class="highlight-box">
-              <div class="box-label">Preferred Focus</div>
-              <div class="box-value">Web, Mobile &amp; AI</div>
+            <div class="metric-tile">
+              <div class="metric-tile-label">Location / Setup</div>
+              <div class="metric-tile-value">Worldwide (Remote)</div>
             </div>
-            <div class="highlight-box">
-              <div class="box-label">Current Deep Dive</div>
-              <div class="box-value">React &amp; Next.js</div>
+            <div class="metric-tile">
+              <div class="metric-tile-label">Current Deep Dive</div>
+              <div class="metric-tile-value">React &amp; Next.js</div>
             </div>
-            <div class="highlight-box">
-              <div class="box-label">Location / Remote</div>
-              <div class="box-value">Worldwide (Remote)</div>
+            <div class="metric-tile">
+              <div class="metric-tile-label">Primary Stack</div>
+              <div class="metric-tile-value">Python, JS &amp; SQL</div>
             </div>
           </div>
         </div>
-
       </div>
     </div>
   </section>
 
   <!-- ==========================================================================
-       BLOG SECTION (ABOUT ME SUB-SECTION & POST CREATOR)
+       BLOG SECTION
        ========================================================================== -->
   <section class="section-blog" id="blog">
     <div class="container">
-      <div class="section-header">
+      <div class="section-header reveal">
         <span class="section-tag">03 // THOUGHTS &amp; LOGS</span>
         <h2 class="section-title">BRIAN'S <span class="highlight">TECH DISPATCH</span></h2>
         <p class="section-subtitle">
-          Insights on Python pipelines, modern web aesthetics, AI tools, and my ongoing journey mastering React.
+          Insights on Python pipelines, modern web aesthetics, AI integrations, and my ongoing journey mastering React.
         </p>
       </div>
 
-      <div class="blog-top-bar">
+      <div class="blog-top-bar reveal">
         <div class="blog-filters">
           <button class="filter-btn active" data-category="all">All Topics</button>
           <button class="filter-btn" data-category="ai integration">AI Integration</button>
@@ -276,15 +313,13 @@
           <button class="filter-btn" data-category="web dev">Web Dev</button>
         </div>
 
-        <button class="neo-btn neo-btn-green" id="open-new-post-modal">
+        <button class="btn btn-primary" id="open-new-post-modal">
           ✍️ Write New Post
         </button>
       </div>
 
-      <!-- Live Blog Feed -->
-      <div class="blog-grid" id="blog-grid">
-        <!-- Rendered dynamically by js/blog.js -->
-      </div>
+      <!-- Live Blog Feed (Populated dynamically by js/blog.js) -->
+      <div class="blog-grid" id="blog-grid"></div>
     </div>
   </section>
 
@@ -293,122 +328,123 @@
        ========================================================================== -->
   <section class="section-projects" id="projects">
     <div class="container">
-      <div class="section-header">
+      <div class="section-header reveal">
         <span class="section-tag">04 // SELECTED WORKS</span>
         <h2 class="section-title">FEATURED <span class="highlight">PROJECTS</span></h2>
         <p class="section-subtitle">
-          Hand-picked apps demonstrating full-stack engineering, AI automation, database systems, and dynamic UI design.
+          Hand-picked applications demonstrating full-stack engineering, AI automation, database systems, and dynamic UI
+          design.
         </p>
       </div>
 
       <!-- Featured Projects Grid -->
-      <div class="projects-grid">
+      <div class="projects-grid reveal">
         <!-- Project 1 -->
         <div class="project-card">
-          <div class="project-preview" style="background: #ffe600;">
-            <span class="neo-badge badge-purple preview-badge">AI + Python</span>
+          <div class="project-preview">
+            <span class="tag badge-purple preview-badge">AI + Python</span>
             <div class="project-icon-large">🤖</div>
           </div>
           <div class="project-info">
-            <h3 class="project-title">SmartAgent Flow</h3>
-            <p class="project-desc">
-              AI orchestration hub built in Python that takes natural language user goals, executes automated multi-step
-              web scraping, and generates summarized PDF reports.
-            </p>
-            <div class="project-tags">
-              <span class="neo-badge badge-yellow">Python</span>
-              <span class="neo-badge badge-purple">OpenAI API</span>
-              <span class="neo-badge badge-green">SQLite</span>
+            <div>
+              <h3 class="project-title">SmartAgent Flow</h3>
+              <p class="project-desc">
+                AI orchestration hub built in Python that translates natural language goals into multi-step automated
+                workflows, scrapers, and synthesized PDF digests.
+              </p>
+              <div class="project-tags">
+                <span class="tag badge-indigo">Python</span>
+                <span class="tag badge-purple">OpenAI API</span>
+                <span class="tag badge-emerald">SQLite</span>
+              </div>
             </div>
             <div class="project-links">
               <a href="https://github.com/kabuteykabutey" target="_blank" rel="noopener noreferrer"
-                class="neo-btn neo-btn-black">
-                GitHub
-              </a>
-              <a href="#contact" class="neo-btn neo-btn-cyan">Details </a>
+                class="btn btn-outline">GitHub</a>
+              <a href="#contact" class="btn btn-primary">Details ↗</a>
             </div>
           </div>
         </div>
 
         <!-- Project 2 -->
         <div class="project-card">
-          <div class="project-preview" style="background: #00f0ff;">
-            <span class="neo-badge badge-pink preview-badge">Database + Web</span>
+          <div class="project-preview">
+            <span class="tag badge-cyan preview-badge">Database + Web</span>
             <div class="project-icon-large">🗄️</div>
           </div>
           <div class="project-info">
-            <h3 class="project-title">OmniData Portal</h3>
-            <p class="project-desc">
-              High-performance data management dashboard with PostgreSQL backend, role-based authentication, real-time
-              query metrics, and responsive Neo-Brutalist visualization.
-            </p>
-            <div class="project-tags">
-              <span class="neo-badge badge-green">PostgreSQL</span>
-              <span class="neo-badge badge-orange">JavaScript</span>
-              <span class="neo-badge badge-yellow">HTML &amp; CSS</span>
+            <div>
+              <h3 class="project-title">OmniData Portal</h3>
+              <p class="project-desc">
+                High-performance data management dashboard with PostgreSQL backend, role-based authentication, real-time
+                query metrics, and responsive visualization.
+              </p>
+              <div class="project-tags">
+                <span class="tag badge-emerald">PostgreSQL</span>
+                <span class="tag badge-amber">JavaScript</span>
+                <span class="tag badge-indigo">HTML5 &amp; CSS3</span>
+              </div>
             </div>
             <div class="project-links">
               <a href="https://github.com/kabuteykabutey" target="_blank" rel="noopener noreferrer"
-                class="neo-btn neo-btn-black">
-                GitHub
-              </a>
-              <a href="#contact" class="neo-btn neo-btn-yellow">Demo </a>
+                class="btn btn-outline">GitHub</a>
+              <a href="#contact" class="btn btn-primary">Demo ↗</a>
             </div>
           </div>
         </div>
 
         <!-- Project 3 -->
         <div class="project-card">
-          <div class="project-preview" style="background: #ff3366;">
-            <span class="neo-badge badge-cyan preview-badge">React Laboratory</span>
+          <div class="project-preview">
+            <span class="tag badge-rose preview-badge">React Laboratory</span>
             <div class="project-icon-large">⚛️</div>
           </div>
           <div class="project-info">
-            <h3 class="project-title">React Dynamic UI Lab</h3>
-            <p class="project-desc">
-              An ongoing exploratory suite of interactive React components, exploring custom hooks, optimistic
-              rendering, modular design patterns, and playful state transitions.
-            </p>
-            <div class="project-tags">
-              <span class="neo-badge badge-pink">React (Learning)</span>
-              <span class="neo-badge badge-orange">ES6+</span>
-              <span class="neo-badge badge-yellow">Modern CSS</span>
+            <div>
+              <h3 class="project-title">React Dynamic UI Lab</h3>
+              <p class="project-desc">
+                An exploratory suite of interactive React components, exploring custom hooks, optimistic rendering,
+                modular design patterns, and playful state transitions.
+              </p>
+              <div class="project-tags">
+                <span class="tag badge-rose">React (Learning)</span>
+                <span class="tag badge-amber">ES6+</span>
+                <span class="tag badge-indigo">Modern CSS</span>
+              </div>
             </div>
             <div class="project-links">
               <a href="https://github.com/kabuteykabutey" target="_blank" rel="noopener noreferrer"
-                class="neo-btn neo-btn-black">
-                GitHub
-              </a>
-              <a href="#contact" class="neo-btn neo-btn-green">Preview </a>
+                class="btn btn-outline">GitHub</a>
+              <a href="#contact" class="btn btn-primary">Preview ↗</a>
             </div>
           </div>
         </div>
       </div>
 
       <!-- Live GitHub Repos Integration -->
-      <div class="github-repos-container" id="github-repos">
+      <div class="github-repos-container reveal" id="github-repos">
         <div class="github-header">
           <div class="github-title-wrap">
             <img src="https://github.com/kabuteykabutey.png" alt="Brian Ahuma Kabutey GitHub Avatar"
               class="github-avatar" onerror="this.src='https://avatars.githubusercontent.com/u/9919?v=4'" />
             <div>
-              <h3 style="font-size: 1.6rem; text-transform: uppercase;">
+              <h3 style="font-size: 1.25rem;">
                 GitHub Repositories (<a href="https://github.com/kabuteykabutey" target="_blank"
-                  rel="noopener noreferrer" style="color: var(--blue); text-decoration: underline;">@kabuteykabutey</a>)
+                  rel="noopener noreferrer" style="color: var(--accent-primary);">@kabuteykabutey</a>)
               </h3>
-              <p style="font-size: 0.9rem; color: #555; margin-bottom: 0;">
+              <p style="font-size: 0.88rem; color: var(--text-secondary); margin-bottom: 0;">
                 Live repositories fetched in real-time from Brian's GitHub profile.
               </p>
             </div>
           </div>
 
           <div style="display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap;">
-            <span class="neo-badge badge-yellow" id="github-repo-count">Loading Repos...</span>
-            <input type="text" id="repo-search-input" class="neo-input" placeholder="🔍 Filter repos..."
-              style="width: 220px; padding: 0.45rem 0.75rem; font-size: 0.85rem;" />
+            <span class="tag badge-indigo" id="github-repo-count">Loading Repos...</span>
+            <input type="text" id="repo-search-input" class="input" placeholder=" Filter repos..."
+              style="width: 200px; padding: 0.45rem 0.85rem; font-size: 0.85rem;" />
             <a href="https://github.com/kabuteykabutey" target="_blank" rel="noopener noreferrer"
-              class="neo-btn neo-btn-black" style="padding: 0.45rem 0.9rem; font-size: 0.85rem;">
-              Visit GitHub Profile ↗
+              class="btn btn-outline" style="padding: 0.45rem 0.9rem; font-size: 0.85rem;">
+              Profile ↗
             </a>
           </div>
         </div>
@@ -425,22 +461,20 @@
        ========================================================================== -->
   <section class="section-guestbook" id="guestbook">
     <div class="container">
-      <div class="section-header">
-        <span class="section-tag" style="background: var(--black); color: var(--yellow);">05 // LEAVE YOUR MARK</span>
-        <h2 class="section-title">THE DIGITAL <span class="highlight" style="background: var(--white);">GUESTBOOK</span>
-        </h2>
-        <p class="section-subtitle" style="color: #222;">
-          Visiting Brian's portfolio? Drop your name, choose your ink, and use your mouse or finger to draw your
-          free-hand signature!
+      <div class="section-header reveal">
+        <span class="section-tag">05 // LEAVE YOUR MARK</span>
+        <h2 class="section-title">THE DIGITAL <span class="highlight">GUESTBOOK</span></h2>
+        <p class="section-subtitle">
+          Visiting Brian's portfolio? Drop your name, choose your ink, and draw your free-hand signature or mark!
         </p>
       </div>
 
       <div class="guestbook-grid">
         <!-- Interactive Drawing Pad Card -->
-        <div class="signature-pad-card">
+        <div class="signature-pad-card reveal">
           <div class="pad-header">
-            <h3 style="font-size: 1.5rem; text-transform: uppercase; margin-bottom: 0.25rem;">Sign the Board ✍️</h3>
-            <p style="font-size: 0.9rem; color: #555; margin-bottom: 0;">
+            <h3 style="font-size: 1.25rem; margin-bottom: 0.25rem;">Sign the Board </h3>
+            <p style="font-size: 0.88rem; color: var(--text-secondary); margin-bottom: 0;">
               Draw your actual signature or custom doodle below:
             </p>
           </div>
@@ -453,46 +487,45 @@
           <!-- Canvas Controls & Palette -->
           <div class="canvas-toolbar">
             <div class="color-picker-group">
-              <span style="font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700;">INK:</span>
-              <button type="button" class="color-option color-black active" data-color="#121212"
-                title="Black Ink"></button>
-              <button type="button" class="color-option color-blue" data-color="#2563eb"
-                title="Royal Blue Ink"></button>
-              <button type="button" class="color-option color-purple" data-color="#7928ca" title="Purple Ink"></button>
-              <button type="button" class="color-option color-pink" data-color="#ff3366" title="Hot Pink Ink"></button>
+              <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted);">INK:</span>
+              <button type="button" class="color-option color-black active" data-color="#f4f4f6"
+                title="White Ink"></button>
+              <button type="button" class="color-option color-blue" data-color="#6366f1" title="Indigo Ink"></button>
+              <button type="button" class="color-option color-purple" data-color="#a855f7" title="Purple Ink"></button>
+              <button type="button" class="color-option color-pink" data-color="#f43f5e" title="Rose Ink"></button>
             </div>
 
-            <button type="button" class="neo-btn neo-btn-pink" id="clear-signature-btn"
-              style="padding: 0.4rem 0.8rem; font-size: 0.8rem;">
-              🧹 Clear Pad
+            <button type="button" class="btn btn-outline" id="clear-signature-btn"
+              style="padding: 0.35rem 0.75rem; font-size: 0.8rem;">
+              🧹 Clear
             </button>
           </div>
 
           <!-- Signer Info Inputs -->
           <div class="pad-input-group">
             <label for="guest-name">Your Full Name / Alias *</label>
-            <input type="text" id="guest-name" class="neo-input" placeholder="e.g. Maya Lin" required />
+            <input type="text" id="guest-name" class="input" placeholder="e.g. Maya Lin" required />
           </div>
 
           <div class="pad-input-group">
             <label for="guest-role">Your Role / Organization (Optional)</label>
-            <input type="text" id="guest-role" class="neo-input" placeholder="e.g. Founder, Developer, Collaborator" />
+            <input type="text" id="guest-role" class="input" placeholder="e.g. Founder, Developer, Collaborator" />
           </div>
 
-          <button type="button" class="neo-btn neo-btn-green" id="stamp-signature-btn"
-            style="width: 100%; font-size: 1.05rem; padding: 0.85rem;">
+          <button type="button" class="btn btn-primary" id="stamp-signature-btn" style="width: 100%; padding: 0.8rem;">
             Stamp Signature into Guestbook
           </button>
         </div>
 
         <!-- Guestbook Wall of Signatures -->
-        <div class="guestbook-wall-card">
+        <div class="guestbook-wall-card reveal delay-1">
           <div class="wall-header">
             <div>
-              <h3 style="font-size: 1.4rem; text-transform: uppercase;">Wall of Signatures</h3>
-              <p style="font-size: 0.85rem; color: #555; margin-bottom: 0;">Verified visitor marks &amp; greetings</p>
+              <h3 style="font-size: 1.25rem;">Wall of Signatures</h3>
+              <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0;">Verified visitor marks
+                &amp; greetings</p>
             </div>
-            <span class="neo-badge badge-yellow" id="total-signatures-count">0 Signatures</span>
+            <span class="tag badge-indigo" id="total-signatures-count">0 Signatures</span>
           </div>
 
           <div class="signatures-feed" id="signatures-feed">
@@ -504,36 +537,36 @@
   </section>
 
   <!-- ==========================================================================
-       UNIVERSAL FOOTER & CONTACT ME SECTION
+       CONTACT ME SECTION & FOOTER (BENTO LAYOUT)
        ========================================================================== -->
   <footer class="site-footer" id="contact">
     <div class="container">
       <div class="footer-grid">
         <!-- Direct Contact Info Card -->
-        <div class="footer-info-card">
-          <h2 class="footer-brand">BRIAN AHUMA KABUTEY</h2>
-          <div class="neo-badge badge-green" style="margin-bottom: 1.25rem;">
-            🟢 STATUS: READY FOR NEW CONTRACTS
+        <div class="footer-info-card reveal">
+          <h2 class="footer-brand">Brian Ahuma Kabutey</h2>
+          <div class="tag badge-emerald" style="margin-bottom: 1.25rem;">
+            🟢 STATUS: READY FOR CONTRACTS
           </div>
 
-          <p style="font-size: 1.05rem; line-height: 1.7; color: #333;">
+          <p style="font-size: 0.98rem; line-height: 1.65; color: var(--text-secondary);">
             Looking to launch an impactful web application, implement an AI-driven automation workflow, or build
-            scalable Python services? Let's team up.
+            scalable backend services? Let's build together.
           </p>
 
           <div class="contact-details">
             <div class="contact-row">
               <div class="contact-icon">
-                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor" aria-hidden="true">
                   <path
                     d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
                 </svg>
               </div>
               <div>
-                <div style="font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700; color: #555;">EMAIL
-                  ADDRESS</div>
-                <a href="mailto:briankabutey10@gmail.com" class="copy-email-btn"
-                  style="font-weight: 800; text-decoration: underline;" title="Click to copy email">
+                <div
+                  style="font-family: var(--font-mono); font-size: 0.74rem; color: var(--text-muted); margin-bottom: 0.2rem;">
+                  EMAIL ADDRESS</div>
+                <a href="mailto:briankabutey10@gmail.com" class="copy-email-btn" title="Click to copy email">
                   briankabutey10@gmail.com
                 </a>
               </div>
@@ -541,30 +574,32 @@
 
             <div class="contact-row">
               <div class="contact-icon">
-                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor" aria-hidden="true">
                   <path
                     d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z" />
                 </svg>
               </div>
               <div>
-                <div style="font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700; color: #555;">ROLE &amp;
-                  AVAILABILITY</div>
-                <div style="font-weight: 800;">Freelance Web &amp; App Developer (Remote / Global)</div>
+                <div
+                  style="font-family: var(--font-mono); font-size: 0.74rem; color: var(--text-muted); margin-bottom: 0.2rem;">
+                  ROLE &amp; AVAILABILITY</div>
+                <div style="font-weight: 600;">Freelance Web &amp; App Developer (Remote / Global)</div>
               </div>
             </div>
 
             <div class="contact-row">
               <div class="contact-icon">
-                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor" aria-hidden="true">
                   <path fill-rule="evenodd" clip-rule="evenodd"
                     d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
                 </svg>
               </div>
               <div>
-                <div style="font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700; color: #555;">GITHUB
-                  PROFILE</div>
+                <div
+                  style="font-family: var(--font-mono); font-size: 0.74rem; color: var(--text-muted); margin-bottom: 0.2rem;">
+                  GITHUB PROFILE</div>
                 <a href="https://github.com/kabuteykabutey" target="_blank" rel="noopener noreferrer"
-                  style="font-weight: 800; text-decoration: underline;">
+                  style="color: var(--accent-primary);">
                   github.com/kabuteykabutey ↗
                 </a>
               </div>
@@ -573,12 +608,13 @@
 
           <div style="margin-top: 2rem;">
             <div
-              style="font-family: var(--font-mono); font-size: 0.85rem; font-weight: 800; text-transform: uppercase; margin-bottom: 0.75rem;">
-              Connect with Brian on Socials:
+              style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.75rem;">
+              CONNECT ON SOCIALS:
             </div>
             <div class="footer-social-links">
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="footer-social-btn">
-                <svg class="app-icon" viewBox="0 0 24 24" width="17" height="17" fill="currentColor" aria-hidden="true">
+              <a href="https://linkedin.com/in/brian-kabutey-8708b3388" target="_blank" rel="noopener noreferrer"
+                class="footer-social-btn">
+                <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true">
                   <path
                     d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.3a1.65 1.65 0 0 0-1.66 1.65 1.66 1.66 0 0 0 1.66 1.66 1.66 1.66 0 0 0 1.65-1.66A1.66 1.66 0 0 0 7.83 6.3z" />
                 </svg>
@@ -586,7 +622,7 @@
               </a>
               <a href="https://github.com/kabuteykabutey" target="_blank" rel="noopener noreferrer"
                 class="footer-social-btn">
-                <svg class="app-icon" viewBox="0 0 24 24" width="17" height="17" fill="currentColor" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true">
                   <path fill-rule="evenodd" clip-rule="evenodd"
                     d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
                 </svg>
@@ -594,86 +630,77 @@
               </a>
               <a href="https://x.com/KabuteyKabutey" target="_blank" rel="noopener noreferrer"
                 class="footer-social-btn">
-                <svg class="app-icon" viewBox="0 0 24 24" width="17" height="17" fill="currentColor" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true">
                   <path
                     d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
                 </svg>
-                <span>X / Twitter</span>
+                <span>X</span>
               </a>
               <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="footer-social-btn">
-                <svg class="app-icon" viewBox="0 0 24 24" width="17" height="17" fill="currentColor" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true">
                   <path
                     d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
                 </svg>
                 <span>Instagram</span>
               </a>
-              <a href="https://www.facebook.com/share/18XKCK5Wfu/" target="_blank" rel="noopener noreferrer"
-                class="footer-social-btn">
-                <svg class="app-icon" viewBox="0 0 24 24" width="17" height="17" fill="currentColor" aria-hidden="true">
-                  <path
-                    d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-                </svg>
-                <span>Facebook (Luh Miles)</span>
-              </a>
             </div>
           </div>
         </div>
 
-        <!-- Interactive Contact Form -->
-        <div class="footer-form-card">
+        <!-- Interactive Contact Form Card -->
+        <div class="footer-form-card reveal delay-1">
           <div style="margin-bottom: 1.5rem;">
-            <span class="neo-badge badge-yellow" style="margin-bottom: 0.5rem;">SEND A MESSAGE</span>
-            <h3 style="font-size: 1.8rem; text-transform: uppercase;">START A PROJECT TOGETHER</h3>
-            <p style="font-size: 0.95rem; color: #444; margin-bottom: 0;">
-              Leave your details below and Brian will get back to you promptly.
+            <span class="tag badge-indigo" style="margin-bottom: 0.5rem;">DIRECT INQUIRY</span>
+            <h3 style="font-size: 1.5rem; letter-spacing: -0.02em;">Start a Project Together</h3>
+            <p style="font-size: 0.92rem; color: var(--text-secondary); margin-bottom: 0;">
+              Leave your details below and Brian will respond promptly.
             </p>
           </div>
 
           <form id="contact-form">
             <div class="form-group">
               <label for="contact-name">Your Name *</label>
-              <input type="text" id="contact-name" class="neo-input" placeholder="e.g. Jordan Miller" required />
+              <input type="text" id="contact-name" class="input" placeholder="e.g. Jordan Miller" required />
             </div>
 
             <div class="form-group">
               <label for="contact-email">Your Email Address *</label>
-              <input type="email" id="contact-email" class="neo-input" placeholder="e.g. jordan@company.com" required />
+              <input type="email" id="contact-email" class="input" placeholder="e.g. jordan@company.com" required />
             </div>
 
             <div class="form-group">
               <label for="contact-subject">Project Topic / Service</label>
-              <input type="text" id="contact-subject" class="neo-input"
+              <input type="text" id="contact-subject" class="input"
                 placeholder="e.g. Web App Development or AI Integration" />
             </div>
 
             <div class="form-group">
               <label for="contact-message">Project Description &amp; Requirements *</label>
-              <textarea id="contact-message" class="neo-input"
+              <textarea id="contact-message" class="input"
                 placeholder="Describe what you want to build, timelines, and goals..." required></textarea>
             </div>
 
-            <input type="text" name="_honey" id="contact-honey" style="display:none;" tabindex="-1" autocomplete="off" />
+            <input type="text" name="_honey" id="contact-honey" style="display:none;" tabindex="-1"
+              autocomplete="off" />
 
-            <button type="submit" class="neo-btn neo-btn-yellow"
-              style="width: 100%; font-size: 1.1rem; padding: 0.9rem;">
-              Send Message to Brian
+            <button type="submit" class="btn btn-primary" style="width: 100%; padding: 0.85rem; font-size: 1rem;">
+              Send Message to Brian ↗
             </button>
           </form>
         </div>
       </div>
 
-      <!-- Bottom Bar -->
+      <!-- Footer Bottom Bar -->
       <div class="footer-bottom">
         <div>
-          © 2026 <strong>Brian Ahuma Kabutey</strong>. Built in authentic Neo-Brutalism style. All rights reserved.
+          © 2026 <strong>Brian Ahuma Kabutey</strong>. Designed with Modern Bento Grid &amp; Minimalist Aesthetics.
         </div>
         <div style="display: flex; gap: 0.85rem; align-items: center;">
-          <a href="admin.html" class="admin-portal-link" title="Admin CMS Portal"
-            style="font-family: var(--font-mono); font-size: 0.78rem; color: #71717a; text-decoration: none; padding: 0.25rem 0.5rem; border: 1px dashed #3f3f46; border-radius: 3px; display: inline-flex; align-items: center; gap: 0.3rem;">
+          <a href="admin.html" class="admin-portal-link" title="Admin CMS Portal">
             🔒 Admin
           </a>
           <button class="back-to-top" id="back-to-top">
-            ↑ Back to Top
+            ↑ Top
           </button>
         </div>
       </div>
@@ -687,20 +714,20 @@
     aria-labelledby="modal-post-title">
     <div class="modal-window">
       <div class="modal-header">
-        <h3 id="modal-post-title" style="text-transform: uppercase; font-size: 1.25rem;">✍️ Write a New Blog Post</h3>
+        <h3 id="modal-post-title">✍️ Write a New Blog Post</h3>
         <button class="modal-close-btn" id="blog-modal-close" aria-label="Close modal">✕</button>
       </div>
       <div class="modal-body">
         <form id="new-post-form">
           <div class="form-group">
             <label for="post-title">Article Title *</label>
-            <input type="text" id="post-title" class="neo-input"
+            <input type="text" id="post-title" class="input"
               placeholder="e.g. Exploring Fast Neural Pipelines in Python" required />
           </div>
 
           <div class="form-group">
             <label for="post-category">Category *</label>
-            <select id="post-category" class="neo-input" required>
+            <select id="post-category" class="input" required>
               <option value="AI Integration">AI Integration</option>
               <option value="Python">Python</option>
               <option value="React">React</option>
@@ -711,18 +738,17 @@
 
           <div class="form-group">
             <label for="post-excerpt">Short Summary / Hook *</label>
-            <input type="text" id="post-excerpt" class="neo-input"
+            <input type="text" id="post-excerpt" class="input"
               placeholder="Brief 1-2 sentence hook for the preview card..." required />
           </div>
 
           <div class="form-group">
             <label for="post-content">Full Post Content * (Paragraphs separated by double line breaks)</label>
-            <textarea id="post-content" class="neo-input" style="min-height: 180px;"
+            <textarea id="post-content" class="input" style="min-height: 180px;"
               placeholder="Write your full insights here..." required></textarea>
           </div>
 
-          <button type="submit" class="neo-btn neo-btn-green"
-            style="width: 100%; font-size: 1.05rem; padding: 0.85rem;">
+          <button type="submit" class="btn btn-primary" style="width: 100%; padding: 0.85rem;">
             Publish Post to Feed
           </button>
         </form>
@@ -735,14 +761,14 @@
        ========================================================================== -->
   <div class="modal-backdrop" id="read-post-modal-backdrop" role="dialog" aria-modal="true">
     <div class="modal-window">
-      <div class="modal-header" style="background: var(--cyan);">
-        <h3 id="read-post-title" style="text-transform: uppercase; font-size: 1.25rem;">Article Details</h3>
+      <div class="modal-header">
+        <h3 id="read-post-title">Article Details</h3>
         <button class="modal-close-btn" id="read-post-modal-close" aria-label="Close modal">✕</button>
       </div>
       <div class="modal-body">
         <div id="read-post-meta"
           style="margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;"></div>
-        <div id="read-post-content" style="line-height: 1.75; font-size: 1.05rem; color: #222;"></div>
+        <div id="read-post-content" style="line-height: 1.75; font-size: 1rem; color: var(--text-secondary);"></div>
       </div>
     </div>
   </div>
