@@ -430,36 +430,52 @@
         </div>
       </div>
 
-      <!-- Live GitHub Repos Integration -->
-      <div class="github-repos-container reveal" id="github-repos">
-        <div class="github-header">
-          <div class="github-title-wrap">
-            <img src="https://github.com/kabuteykabutey.png" alt="Brian Ahuma Kabutey GitHub Avatar"
-              class="github-avatar" onerror="this.src='https://avatars.githubusercontent.com/u/9919?v=4'" />
-            <div>
-              <h3 style="font-size: 1.25rem;">
-                GitHub Repositories (<a href="https://github.com/kabuteykabutey" target="_blank"
-                  rel="noopener noreferrer" style="color: var(--accent-primary);">@kabuteykabutey</a>)
-              </h3>
-              <p style="font-size: 0.88rem; color: var(--text-secondary); margin-bottom: 0;">
-                Live repositories fetched in real-time from Brian's GitHub profile.
-              </p>
+      <!-- Live GitHub Repos Integration with Horizontal Scroll on Vertical Scroll -->
+      <div class="github-scroll-section" id="github-scroll-section">
+        <div class="github-sticky-wrapper">
+          <div class="github-repos-container">
+            <div class="github-header">
+              <div class="github-title-wrap">
+                <img src="https://github.com/kabuteykabutey.png" alt="Brian Ahuma Kabutey GitHub Avatar"
+                  class="github-avatar" onerror="this.src='https://avatars.githubusercontent.com/u/9919?v=4'" />
+                <div>
+                  <h3 class="github-heading">
+                    GitHub Repositories (<a href="https://github.com/kabuteykabutey" target="_blank"
+                      rel="noopener noreferrer" class="github-user-link">@kabuteykabutey</a>)
+                  </h3>
+                  <p class="github-subtext">
+                    Live repositories automatically synced from GitHub • Scroll down to slide through
+                  </p>
+                </div>
+              </div>
+
+              <div class="github-controls">
+                <span class="tag badge-indigo" id="github-repo-count">Syncing...</span>
+                <button id="github-refresh-btn" class="btn btn-outline btn-sm" title="Check for new GitHub repositories"
+                  style="padding: 0.35rem 0.75rem; font-size: 0.8rem;">
+                  🔄 Sync
+                </button>
+                <input type="text" id="repo-search-input" class="input repo-search-input" placeholder="🔍 Filter repos..."
+                  style="width: 170px; padding: 0.4rem 0.75rem; font-size: 0.82rem;" />
+                <div class="repo-nav-arrows">
+                  <button id="repo-scroll-prev" class="repo-arrow-btn" aria-label="Scroll left">‹</button>
+                  <button id="repo-scroll-next" class="repo-arrow-btn" aria-label="Scroll right">›</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Horizontal Scroll Viewport -->
+            <div class="repos-horizontal-viewport" id="repos-viewport">
+              <div class="repos-horizontal-track" id="repos-grid">
+                <!-- Dynamically populated by js/github.js -->
+              </div>
+            </div>
+
+            <!-- Scroll Progress Bar -->
+            <div class="repos-scroll-progress-bar">
+              <div class="repos-scroll-progress-fill" id="repos-progress-fill"></div>
             </div>
           </div>
-
-          <div style="display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap;">
-            <span class="tag badge-indigo" id="github-repo-count">Loading Repos...</span>
-            <input type="text" id="repo-search-input" class="input" placeholder=" Filter repos..."
-              style="width: 200px; padding: 0.45rem 0.85rem; font-size: 0.85rem;" />
-            <a href="https://github.com/kabuteykabutey" target="_blank" rel="noopener noreferrer"
-              class="btn btn-outline" style="padding: 0.45rem 0.9rem; font-size: 0.85rem;">
-              Profile ↗
-            </a>
-          </div>
-        </div>
-
-        <div class="repos-grid" id="repos-grid">
-          <!-- Rendered dynamically by js/github.js -->
         </div>
       </div>
     </div>

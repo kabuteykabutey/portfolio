@@ -1435,12 +1435,48 @@ section {
 }
 
 /* GitHub Repositories Container */
+/* ==========================================================================
+   GITHUB REPOSITORIES: HORIZONTAL SCROLL ON VERTICAL SCROLL
+   ========================================================================== */
+.github-scroll-section {
+  position: relative;
+  width: 100%;
+  /* Default height on desktop gives plenty of vertical scrolling room to pan across */
+  min-height: 240vh;
+  margin-top: 2rem;
+}
+
+@media (max-width: 991px) {
+  .github-scroll-section {
+    min-height: auto;
+    margin-top: 1.5rem;
+  }
+}
+
+.github-sticky-wrapper {
+  position: sticky;
+  top: calc(var(--header-height) + 1rem);
+  width: 100%;
+  padding-bottom: 2rem;
+}
+
+@media (max-width: 991px) {
+  .github-sticky-wrapper {
+    position: static;
+    padding-bottom: 0;
+  }
+}
+
 .github-repos-container {
   background: var(--surface-card);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-xl);
   padding: 2.25rem;
   box-shadow: var(--shadow-card);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  overflow: hidden;
+  position: relative;
 }
 
 .github-header {
@@ -1448,7 +1484,7 @@ section {
   align-items: center;
   justify-content: space-between;
   gap: 1.25rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
   flex-wrap: wrap;
 }
 
@@ -1458,40 +1494,126 @@ section {
   gap: 1rem;
 }
 
-.github-avatar {
-  width: 52px;
-  height: 52px;
-  border-radius: 50%;
-  border: 1.5px solid var(--border-medium);
+.github-heading {
+  font-size: 1.25rem;
+  margin-bottom: 0.2rem;
 }
 
-.repos-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.15rem;
+.github-user-link {
+  color: var(--accent-primary);
+  text-decoration: none;
+  transition: color var(--duration-fast) ease;
 }
 
-@media (max-width: 768px) {
-  .repos-grid {
-    grid-template-columns: 1fr;
+.github-user-link:hover {
+  color: #a5b4fc;
+}
+
+.github-subtext {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 0;
+}
+
+.github-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+}
+
+.repo-nav-arrows {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.repo-arrow-btn {
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-pill);
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 1.25rem;
+  line-height: 1;
+  transition: all var(--duration-fast) ease;
+}
+
+.repo-arrow-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: var(--border-medium);
+  color: var(--text-primary);
+  transform: scale(1.08);
+}
+
+.repos-horizontal-viewport {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding: 0.5rem 0.25rem 1.25rem 0.25rem;
+  cursor: grab;
+  scroll-behavior: smooth;
+}
+
+.repos-horizontal-viewport::-webkit-scrollbar {
+  display: none;
+}
+
+.repos-horizontal-viewport:active {
+  cursor: grabbing;
+}
+
+.repos-horizontal-track {
+  display: flex;
+  gap: 1.25rem;
+  width: max-content;
+  will-change: transform;
+  transition: transform 0.08s ease-out;
+}
+
+@media (max-width: 991px) {
+  .repos-horizontal-track {
+    transition: none;
   }
 }
 
 .repo-card {
-  background: rgba(255, 255, 255, 0.025);
+  background: rgba(255, 255, 255, 0.028);
   border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-md);
-  padding: 1.35rem;
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  width: 360px;
+  min-width: 360px;
+  flex-shrink: 0;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  min-height: 220px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
   transition: all var(--duration-fast) var(--ease-spring);
 }
 
+@media (max-width: 576px) {
+  .repo-card {
+    width: 290px;
+    min-width: 290px;
+    padding: 1.25rem;
+    min-height: 200px;
+  }
+}
+
 .repo-card:hover {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: var(--border-hover);
-  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.06);
+  border-color: var(--accent-primary);
+  box-shadow: 0 8px 30px rgba(99, 102, 241, 0.18);
+  transform: translateY(-4px);
 }
 
 .repo-top {
@@ -1508,6 +1630,7 @@ section {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
+  text-decoration: none;
 }
 
 .repo-name:hover {
@@ -1519,6 +1642,10 @@ section {
   color: var(--text-secondary);
   line-height: 1.55;
   margin-bottom: 1.15rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .repo-meta {
@@ -1546,6 +1673,23 @@ section {
   display: inline-flex;
   align-items: center;
   gap: 0.75rem;
+}
+
+.repos-scroll-progress-bar {
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+  margin-top: 0.5rem;
+}
+
+.repos-scroll-progress-fill {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-primary) 0%, #a855f7 50%, #06b6d4 100%);
+  border-radius: var(--radius-pill);
+  transition: width 0.1s linear;
 }
 
 /* ==========================================================================
