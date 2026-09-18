@@ -21,11 +21,20 @@
     href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap"
     rel="stylesheet" />
 
+  <!-- Devicon: tech/language icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
+
   <!-- Stylesheet -->
   <link rel="stylesheet" href="css/styles.css" />
 </head>
 
 <body>
+  <!-- Aurora Background -->
+  <div class="aurora-bg">
+    <div class="aurora aurora-1"></div>
+    <div class="aurora aurora-2"></div>
+    <div class="aurora aurora-3"></div>
+  </div>
 
   <!-- ==========================================================================
        HEADER & FROSTED GLASS NAVIGATION
@@ -104,10 +113,10 @@
           <p class="profile-role">Full-Stack / Python / AI Integrator</p>
 
           <div class="profile-pill-stack">
-            <span class="tag badge-indigo">🐍 Python Backend</span>
-            <span class="tag badge-purple">🤖 LLM Orchestration</span>
-            <span class="tag badge-emerald">🗄️ SQL &amp; PostgreSQL</span>
-            <span class="tag badge-amber">⚛️ React &amp; Next.js</span>
+            <span class="tag badge-indigo"><i class="devicon-python-plain"></i> Python Backend</span>
+            <span class="tag badge-purple"><i class="devicon-openai-plain"></i> LLM Orchestration</span>
+            <span class="tag badge-emerald"><i class="devicon-postgresql-plain"></i> SQL &amp; PostgreSQL</span>
+            <span class="tag badge-amber"><i class="devicon-react-original"></i> React &amp; Next.js</span>
           </div>
         </div>
 
@@ -314,7 +323,7 @@
         </div>
 
         <button class="btn btn-primary" id="open-new-post-modal">
-          ✍️ Write New Post
+          Write New Post
         </button>
       </div>
 
@@ -693,11 +702,11 @@
       <!-- Footer Bottom Bar -->
       <div class="footer-bottom">
         <div>
-          © 2026 <strong>Brian Ahuma Kabutey</strong>. Designed with Modern Bento Grid &amp; Minimalist Aesthetics.
+          © 2026 <strong>Brian Ahuma Kabutey</strong>. Designed with Ahuma.
         </div>
         <div style="display: flex; gap: 0.85rem; align-items: center;">
           <a href="admin.html" class="admin-portal-link" title="Admin CMS Portal">
-            🔒 Admin
+            Admin
           </a>
           <button class="back-to-top" id="back-to-top">
             ↑ Top
@@ -714,7 +723,7 @@
     aria-labelledby="modal-post-title">
     <div class="modal-window">
       <div class="modal-header">
-        <h3 id="modal-post-title">✍️ Write a New Blog Post</h3>
+        <h3 id="modal-post-title"> Write a New Blog Post</h3>
         <button class="modal-close-btn" id="blog-modal-close" aria-label="Close modal">✕</button>
       </div>
       <div class="modal-body">

@@ -30,7 +30,7 @@
   function resizeCanvas() {
     const rect = canvas.getBoundingClientRect();
     const dpr = window.devicePixelRatio || 1;
-    
+
     // Save previous canvas content if exists
     let tempCanvas = null;
     if (canvas.width > 0 && canvas.height > 0) {
@@ -43,7 +43,7 @@
     canvas.width = rect.width * dpr;
     canvas.height = rect.height * dpr;
     ctx.scale(dpr, dpr);
-    
+
     // Reconfigure stroke properties
     ctx.lineCap = 'round';
     ctx.lineJoin = 'round';
@@ -180,7 +180,7 @@
       try {
         const dbSigs = await window.portfolioDB.getSignatures();
         if (dbSigs && dbSigs.length > 0) return dbSigs;
-      } catch (e) {}
+      } catch (e) { }
     }
     let saved = localStorage.getItem(STORAGE_KEY);
     if (!saved) {

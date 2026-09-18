@@ -20,9 +20,9 @@
   };
 
   let supabaseClient = null;
-  const isConfigured = 
-    Boolean(SUPABASE_CONFIG.url) && 
-    Boolean(SUPABASE_CONFIG.anonKey) && 
+  const isConfigured =
+    Boolean(SUPABASE_CONFIG.url) &&
+    Boolean(SUPABASE_CONFIG.anonKey) &&
     !SUPABASE_CONFIG.url.includes('YOUR_PROJECT_ID') &&
     !SUPABASE_CONFIG.anonKey.includes('YOUR_ANON_KEY');
 
@@ -106,7 +106,7 @@
           date: entry.date || 'Just now'
         });
         localStorage.setItem(STORAGE_KEYS.signatures, JSON.stringify(list));
-      } catch (e) {}
+      } catch (e) { }
 
       return entry;
     },
@@ -122,7 +122,7 @@
       try {
         const list = (await this.getSignatures()).filter(s => s.id !== id);
         localStorage.setItem(STORAGE_KEYS.signatures, JSON.stringify(list));
-      } catch (e) {}
+      } catch (e) { }
     },
 
     // --- Blog Posts ---
@@ -185,7 +185,7 @@
         const posts = (await this.getPosts()).filter(p => p.id !== post.id);
         posts.unshift(post);
         localStorage.setItem(STORAGE_KEYS.posts, JSON.stringify(posts));
-      } catch (e) {}
+      } catch (e) { }
 
       return post;
     },
@@ -201,7 +201,7 @@
       try {
         const posts = (await this.getPosts()).filter(p => p.id !== id);
         localStorage.setItem(STORAGE_KEYS.posts, JSON.stringify(posts));
-      } catch (e) {}
+      } catch (e) { }
     },
 
     // --- Contact Form Messages ---
@@ -232,7 +232,7 @@
         const list = local ? JSON.parse(local) : [];
         list.unshift(payload);
         localStorage.setItem(STORAGE_KEYS.messages, JSON.stringify(list));
-      } catch (e) {}
+      } catch (e) { }
 
       return payload;
     },
@@ -246,7 +246,7 @@
             .order('created_at', { ascending: false });
 
           if (!error && data) return data;
-        } catch (e) {}
+        } catch (e) { }
       }
 
       try {

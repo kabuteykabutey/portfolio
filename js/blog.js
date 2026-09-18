@@ -75,7 +75,7 @@
       try {
         const dbPosts = await window.portfolioDB.getPosts();
         if (dbPosts && dbPosts.length > 0) return dbPosts;
-      } catch (e) {}
+      } catch (e) { }
     }
     const saved = localStorage.getItem(STORAGE_KEY);
     if (!saved) {
@@ -105,8 +105,8 @@
     if (!blogGrid) return;
     const posts = await loadPosts();
 
-    const filtered = currentCategory === 'all' 
-      ? posts 
+    const filtered = currentCategory === 'all'
+      ? posts
       : posts.filter(p => (p.category || '').toLowerCase() === currentCategory.toLowerCase());
 
     if (filtered.length === 0) {

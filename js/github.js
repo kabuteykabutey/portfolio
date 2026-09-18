@@ -5,11 +5,11 @@
 (function () {
   const GITHUB_USERNAME = 'kabuteykabutey';
   const REPOS_API_URL = `https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=12`;
-  
+
   const reposGrid = document.getElementById('repos-grid');
   const repoCountBadge = document.getElementById('github-repo-count');
   const repoSearchInput = document.getElementById('repo-search-input');
-  
+
   let fetchedRepos = [];
 
   // Fallback Repositories if GitHub API is rate-limited or offline
@@ -83,7 +83,7 @@
 
   async function fetchGitHubRepos() {
     if (!reposGrid) return;
-    
+
     reposGrid.innerHTML = `
       <div style="grid-column: 1 / -1; text-align: center; padding: 2rem;">
         <div class="neo-badge badge-yellow" style="font-size: 1rem; padding: 0.5rem 1rem;">

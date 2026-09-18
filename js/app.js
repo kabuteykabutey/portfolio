@@ -245,7 +245,7 @@ document.addEventListener('DOMContentLoaded', () => {
       e.preventDefault();
 
       if ('vibrate' in navigator) {
-        try { navigator.vibrate(15); } catch (err) {}
+        try { navigator.vibrate(15); } catch (err) { }
       }
 
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -289,7 +289,7 @@ document.addEventListener('DOMContentLoaded', () => {
     targetBtn.classList.add('btn-pressed');
 
     if (e.pointerType === 'touch' && 'vibrate' in navigator) {
-      try { navigator.vibrate(10); } catch (err) {}
+      try { navigator.vibrate(10); } catch (err) { }
     }
 
     const removePress = () => {
@@ -304,3 +304,42 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('pointercancel', removePress, { once: true });
   }, { passive: true });
 });
+// ==========================================================================
+// AURORA MOUSE PARALLAX (CONFLICT-FREE & SCOPED)
+// ==========================================================================
+(function initAuroraParallax() {
+  const auroraElements = document.querySelectorAll('.aurora');
+  if (!auroraElements.length) return;
+
+  let targetX = 0;
+  let targetY = 0;
+  let currentX = 0;
+  let currentY = 0;
+  let rafId = null;
+
+  window.addEventListener('mousemove', (e) => {
+    targetX = (e.clientX / window.innerWidth - 0.5) * 45;
+    targetY = (e.clientY / window.innerHeight - 0.5) * 45;
+
+    if (!rafId) {
+      rafId = requestAnimationFrame(updateParallax);
+    }
+  }, { passive: true });
+
+  function updateParallax() {
+    currentX += (targetX - currentX) * 0.08;
+    currentY += (targetY - currentY) * 0.08;
+
+    auroraElements.forEach((el, index) => {
+      const factor = (index + 1) * 0.5;
+      el.style.setProperty('--mx', `${(currentX * factor).toFixed(2)}px`);
+      el.style.setProperty('--my', `${(currentY * factor).toFixed(2)}px`);
+    });
+
+    if (Math.abs(targetX - currentX) > 0.05 || Math.abs(targetY - currentY) > 0.05) {
+      rafId = requestAnimationFrame(updateParallax);
+    } else {
+      rafId = null;
+    }
+  }
+})();
