@@ -193,18 +193,18 @@ select {
 }
 
 /* ==========================================================================
-   SCROLL REVEAL & SUBTLE ANIMATIONS
+   SCROLL REVEAL & DYNAMIC INTERACTIVE ANIMATIONS
    ========================================================================== */
 .reveal {
   opacity: 0;
-  transform: translateY(22px);
-  transition: opacity 0.65s var(--ease-spring), transform 0.65s var(--ease-spring);
+  transform: translateY(34px) scale(0.96);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform;
 }
 
 .reveal.revealed {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) scale(1);
 }
 
 /* Stagger delay helpers */
@@ -224,17 +224,36 @@ select {
   transition-delay: 0.32s;
 }
 
-/* Subtle floating pulse */
+/* Ambient Floating Keyframes with Natural Levitation */
 @keyframes soft-float {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-9px) rotate(0.6deg);
+  }
+}
 
-  0%,
-  100% {
+@keyframes floatBob {
+  0%, 100% {
     transform: translateY(0);
   }
-
   50% {
     transform: translateY(-6px);
   }
+}
+
+.float-pill-1 {
+  animation: floatBob 5.2s ease-in-out infinite;
+}
+.float-pill-2 {
+  animation: floatBob 6s ease-in-out infinite 0.8s;
+}
+.float-pill-3 {
+  animation: floatBob 5.6s ease-in-out infinite 1.6s;
+}
+.float-pill-4 {
+  animation: floatBob 6.4s ease-in-out infinite 2.4s;
 }
 
 @keyframes pulse-ring {
@@ -242,12 +261,10 @@ select {
     transform: scale(0.95);
     opacity: 0.8;
   }
-
   50% {
     transform: scale(1.15);
     opacity: 0.35;
   }
-
   100% {
     transform: scale(0.95);
     opacity: 0.8;
@@ -255,7 +272,49 @@ select {
 }
 
 /* ==========================================================================
-   BENTO GRID ARCHITECTURE
+   INTERACTIVE CURSOR GLOW FOLLOWER
+   ========================================================================== */
+.cursor-glow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 480px;
+  height: 480px;
+  margin-top: -240px;
+  margin-left: -240px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.14) 0%, rgba(168, 85, 247, 0.07) 35%, rgba(6, 182, 212, 0.03) 55%, transparent 75%);
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(35px);
+  transform: translate3d(-999px, -999px, 0);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  will-change: transform;
+}
+
+.cursor-glow.active {
+  opacity: 1;
+}
+
+@media (max-width: 991px) {
+  .cursor-glow {
+    display: none;
+  }
+}
+
+/* Starfield canvas inside aurora background */
+.aurora-particles {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0.85;
+}
+
+/* ==========================================================================
+   BENTO GRID ARCHITECTURE & INTERACTIVE CARD SPOTLIGHTS
    ========================================================================== */
 .bento-grid {
   display: grid;
@@ -274,11 +333,35 @@ select {
   overflow: hidden;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
+  transform-style: preserve-3d;
   transition:
-    transform var(--duration-normal) var(--ease-spring),
-    box-shadow var(--duration-normal) var(--ease-spring),
-    border-color var(--duration-normal) var(--ease-spring),
-    background var(--duration-normal) ease;
+    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.3s ease,
+    background 0.3s ease;
+}
+
+/* Dynamic Cursor Spotlight Following Mouse on Cards */
+.bento-card::after,
+.project-card::after,
+.repo-card::after,
+.blog-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(420px circle at var(--card-x, -999px) var(--card-y, -999px), rgba(99, 102, 241, 0.16), transparent 70%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 2;
+}
+
+.bento-card:hover::after,
+.project-card:hover::after,
+.repo-card:hover::after,
+.blog-card:hover::after {
+  opacity: 1;
 }
 
 .bento-card::before {
@@ -288,31 +371,32 @@ select {
   left: 0;
   right: 0;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.12), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.18), transparent);
   pointer-events: none;
 }
 
 .bento-card:hover {
-  transform: translateY(-3px);
-  border-color: var(--border-hover);
-  box-shadow: var(--shadow-card-hover);
+  transform: translateY(-6px);
+  border-color: rgba(99, 102, 241, 0.45);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.45), 0 0 24px rgba(99, 102, 241, 0.18);
   background: var(--surface-hover);
 }
 
 /* Bento Card Internal Glow Accent */
 .bento-card-glow {
   position: absolute;
-  width: 200px;
-  height: 200px;
+  width: 240px;
+  height: 240px;
   border-radius: 50%;
-  filter: blur(55px);
+  filter: blur(65px);
   pointer-events: none;
-  opacity: 0.18;
-  transition: opacity var(--duration-normal) ease;
+  opacity: 0.22;
+  transition: opacity 0.3s ease, transform 0.5s ease;
 }
 
 .bento-card:hover .bento-card-glow {
-  opacity: 0.35;
+  opacity: 0.5;
+  transform: scale(1.18);
 }
 
 /* Standard Bento Column Spans */
@@ -411,10 +495,34 @@ select {
 .neo-btn-yellow,
 .neo-btn-cyan,
 .neo-btn-pink {
+  position: relative;
   background: var(--accent-primary);
   color: #ffffff !important;
   border-color: rgba(255, 255, 255, 0.15);
-  box-shadow: 0 2px 14px var(--accent-glow);
+  box-shadow: 0 4px 18px rgba(99, 102, 241, 0.28);
+  overflow: hidden;
+}
+
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -70%;
+  width: 50%;
+  height: 200%;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.32) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: rotate(25deg);
+  transition: left 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+.btn-primary:hover::after {
+  left: 130%;
 }
 
 .btn-primary:hover,
@@ -422,8 +530,8 @@ select {
 .neo-btn-cyan:hover,
 .neo-btn-pink:hover {
   background: var(--accent-primary-hover);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 22px rgba(99, 102, 241, 0.35);
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 8px 26px rgba(99, 102, 241, 0.45);
 }
 
 /* Outline / Secondary Button */
@@ -439,9 +547,10 @@ select {
 .btn-outline:hover,
 .neo-btn-black:hover,
 .neo-btn-white:hover {
-  background: rgba(255, 255, 255, 0.09);
-  border-color: var(--border-hover);
-  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--accent-primary);
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
   color: #ffffff !important;
 }
 
@@ -844,17 +953,33 @@ label {
 }
 
 .hero-title .gradient-text {
-  background: linear-gradient(135deg, #ffffff 30%, #a5b4fc 100%);
+  background: linear-gradient(110deg, #ffffff 0%, #ffffff 30%, #c7d2fe 50%, #ffffff 70%, #ffffff 100%);
+  background-size: 240% 100%;
+  animation: shimmerHeading 5.5s ease-in-out infinite;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .hero-title .accent-text {
-  background: linear-gradient(135deg, #818cf8 0%, #c084fc 100%);
+  background: linear-gradient(110deg, #818cf8 0%, #c084fc 30%, #38bdf8 55%, #c084fc 80%, #818cf8 100%);
+  background-size: 240% 100%;
+  animation: shimmerHeading 6s ease-in-out infinite reverse;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+@keyframes shimmerHeading {
+  0% {
+    background-position: 100% 0;
+  }
+  50% {
+    background-position: 0% 0;
+  }
+  100% {
+    background-position: 100% 0;
+  }
 }
 
 .hero-desc {
@@ -891,14 +1016,28 @@ label {
 
 .profile-avatar-frame {
   position: relative;
-  width: 148px;
-  height: 148px;
+  width: 152px;
+  height: 152px;
   border-radius: 50%;
   padding: 4px;
-  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary), transparent);
+  background: conic-gradient(from 0deg, #6366f1, #06b6d4, #d946ef, #6366f1);
   margin-bottom: 1.5rem;
-  box-shadow: 0 0 32px rgba(99, 102, 241, 0.25);
-  animation: soft-float 6s ease-in-out infinite;
+  box-shadow: 0 0 38px rgba(99, 102, 241, 0.35);
+  animation:
+    soft-float 5.5s ease-in-out infinite,
+    spinBorder 9s linear infinite;
+  transition: transform 0.4s var(--ease-spring), box-shadow 0.4s ease;
+}
+
+.profile-avatar-frame:hover {
+  transform: scale(1.08) rotate(2deg);
+  box-shadow: 0 0 54px rgba(168, 85, 247, 0.55);
+}
+
+@keyframes spinBorder {
+  to {
+    filter: hue-rotate(360deg);
+  }
 }
 
 .hero-photo {

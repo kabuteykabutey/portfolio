@@ -29,11 +29,15 @@
 </head>
 
 <body>
-  <!-- Aurora Background -->
+  <!-- Ambient Interactive Cursor Glow Follower -->
+  <div class="cursor-glow" id="cursor-glow"></div>
+
+  <!-- Aurora Background with Dynamic Ambient Particle Stars -->
   <div class="aurora-bg">
     <div class="aurora aurora-1"></div>
     <div class="aurora aurora-2"></div>
     <div class="aurora aurora-3"></div>
+    <canvas id="aurora-particles" class="aurora-particles"></canvas>
   </div>
 
   <!-- ==========================================================================
@@ -113,10 +117,11 @@
           <p class="profile-role">Full-Stack / Python / AI Integrator</p>
 
           <div class="profile-pill-stack">
-            <span class="tag badge-indigo"><i class="devicon-python-plain"></i> Python Backend</span>
-            <span class="tag badge-purple"><i class="devicon-openai-plain"></i> LLM Orchestration</span>
-            <span class="tag badge-emerald"><i class="devicon-postgresql-plain"></i> SQL &amp; PostgreSQL</span>
-            <span class="tag badge-amber"><i class="devicon-react-original"></i> React &amp; Next.js</span>
+            <span class="tag badge-indigo float-pill-1"><i class="devicon-python-plain"></i> Python Backend</span>
+            <span class="tag badge-purple float-pill-2"><i class="devicon-openai-plain"></i> LLM Orchestration</span>
+            <span class="tag badge-emerald float-pill-3"><i class="devicon-postgresql-plain"></i> SQL &amp;
+              PostgreSQL</span>
+            <span class="tag badge-amber float-pill-4"><i class="devicon-react-original"></i> React &amp; Next.js</span>
           </div>
         </div>
 
@@ -455,8 +460,8 @@
                   style="padding: 0.35rem 0.75rem; font-size: 0.8rem;">
                   🔄 Sync
                 </button>
-                <input type="text" id="repo-search-input" class="input repo-search-input" placeholder="🔍 Filter repos..."
-                  style="width: 170px; padding: 0.4rem 0.75rem; font-size: 0.82rem;" />
+                <input type="text" id="repo-search-input" class="input repo-search-input"
+                  placeholder="🔍 Filter repos..." style="width: 170px; padding: 0.4rem 0.75rem; font-size: 0.82rem;" />
                 <div class="repo-nav-arrows">
                   <button id="repo-scroll-prev" class="repo-arrow-btn" aria-label="Scroll left">‹</button>
                   <button id="repo-scroll-next" class="repo-arrow-btn" aria-label="Scroll right">›</button>
