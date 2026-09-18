@@ -1,14 +1,15 @@
 /* ==========================================================================
    GITHUB REPOSITORIES INTEGRATION
    • Always updates & increases with new GitHub repos
-   • Horizontal scroll driven by vertical page scroll
+   • Integrated Pinned Horizontal Scroll on Vertical Page Scroll
+   • Active on all devices and screen sizes
    • Auto-sync on window focus & manual sync button
    ========================================================================== */
 
 (function () {
   const GITHUB_USERNAME = 'kabuteykabutey';
-  const CACHE_KEY = `kabutey_github_repos_cache_v2`;
-  const CACHE_TIME_KEY = `kabutey_github_repos_time_v2`;
+  const CACHE_KEY = 'kabutey_github_repos_cache_v2';
+  const CACHE_TIME_KEY = 'kabutey_github_repos_time_v2';
   const REPOS_API_URL = `https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&direction=desc&per_page=100`;
 
   const scrollSection = document.getElementById('github-scroll-section');
@@ -22,14 +23,13 @@
   const progressFill = document.getElementById('repos-progress-fill');
 
   let fetchedRepos = [];
-  let displayedRepos = [];
   let isSyncing = false;
   let maxScrollX = 0;
   let targetTranslateX = 0;
   let currentTranslateX = 0;
   let scrollRafId = null;
 
-  // Curated Fallbacks in case GitHub API rate limits before first fetch
+  // Fallback repos in case of API rate limit before first fetch
   const fallbackRepos = [
     {
       name: 'portfolio',
@@ -144,7 +144,7 @@
     if (isSyncing) return;
     isSyncing = true;
 
-    // Load from cache first for instantaneous rendering
+    // Load from cache first for instant rendering
     if (!fetchedRepos.length) {
       try {
         const cached = localStorage.getItem(CACHE_KEY);
@@ -164,7 +164,6 @@
     }
 
     try {
-      // Cache buster guarantees fresh response so new repos reflect immediately
       const url = `${REPOS_API_URL}&_t=${Date.now()}`;
       const response = await fetch(url, {
         headers: {
@@ -179,11 +178,10 @@
 
       const data = await response.json();
       if (Array.isArray(data) && data.length > 0) {
-        // Sort by updated_at / pushed_at descending (newest on top)
+        // Sort by updated_at / pushed_at descending (newest repos on top)
         data.sort((a, b) => new Date(b.pushed_at || b.updated_at) - new Date(a.pushed_at || a.updated_at));
 
         fetchedRepos = data;
-        // Save to cache so offline / rate limit never loses newly discovered repos
         try {
           localStorage.setItem(CACHE_KEY, JSON.stringify(data));
           localStorage.setItem(CACHE_TIME_KEY, Date.now().toString());
@@ -211,7 +209,6 @@
   // ==========================================================================
   function renderRepos(repos) {
     if (!reposTrack) return;
-    displayedRepos = repos;
 
     if (repoCountBadge) {
       repoCountBadge.textContent = `${repos.length} Repositories`;
@@ -234,7 +231,6 @@
       const stars = repo.stargazers_count || 0;
       const forks = repo.forks_count || 0;
 
-      // Clean date formatting
       const dateStr = repo.pushed_at || repo.updated_at;
       let timeAgo = '';
       if (dateStr) {
@@ -273,64 +269,53 @@
       `;
     }).join('');
 
-    // Recompute bounds after DOM paints
+    // Recompute scroll metrics once DOM elements render
     requestAnimationFrame(() => {
       updateScrollMetrics();
     });
   }
 
   // ==========================================================================
-  // HORIZONTAL SCROLL ON VERTICAL PAGE SCROLL
+  // PINNED HORIZONTAL SCROLL ON VERTICAL PAGE SCROLL
   // ==========================================================================
   function updateScrollMetrics() {
     if (!reposTrack || !reposViewport || !scrollSection) return;
 
-    // Available horizontal distance
+    // Available horizontal distance the track needs to travel
     const trackWidth = reposTrack.scrollWidth;
     const viewportWidth = reposViewport.clientWidth;
     maxScrollX = Math.max(0, trackWidth - viewportWidth);
 
-    // On desktop, adjust section height dynamically to create proportional vertical scroll room
-    if (window.innerWidth > 991 && maxScrollX > 0) {
-      // Dynamic height: viewport height + scrollable horizontal length with comfortable feel
-      const dynamicHeight = Math.max(window.innerHeight * 2.2, maxScrollX + window.innerHeight * 0.85);
-      scrollSection.style.minHeight = `${Math.round(dynamicHeight)}px`;
-    } else {
-      scrollSection.style.minHeight = 'auto';
-    }
-
-    handleWindowScroll();
-  }
-
-  function handleWindowScroll() {
-    if (!scrollSection || !reposTrack) return;
-
-    // Mobile / small tablet: allow normal horizontal swipe
-    if (window.innerWidth <= 991) {
-      reposTrack.style.transform = 'none';
-      if (progressFill && reposViewport) {
-        const p = reposViewport.scrollWidth > reposViewport.clientWidth
-          ? reposViewport.scrollLeft / (reposViewport.scrollWidth - reposViewport.clientWidth)
-          : 0;
-        progressFill.style.width = `${Math.min(100, Math.max(0, p * 100))}%`;
-      }
-      return;
-    }
-
     if (maxScrollX <= 0) {
+      scrollSection.style.height = 'auto';
       reposTrack.style.transform = 'translate3d(0, 0, 0)';
       if (progressFill) progressFill.style.width = '100%';
       return;
     }
 
+    // Exact proportional vertical scroll height to comfortably pan the horizontal track
+    // 1px of horizontal movement mapped to ~1.05px vertical scroll, plus a comfortable viewing margin
+    const scrollTravel = Math.round(maxScrollX * 1.05 + window.innerHeight * 0.35);
+    scrollSection.style.height = `${window.innerHeight + scrollTravel}px`;
+
+    handleWindowScroll();
+  }
+
+  function handleWindowScroll() {
+    if (!scrollSection || !reposTrack || maxScrollX <= 0) return;
+
+    const siteHeader = document.querySelector('.site-header');
+    const headerH = siteHeader ? siteHeader.offsetHeight : 72;
+    const stickyOffset = headerH + 8;
+
     const rect = scrollSection.getBoundingClientRect();
-    const totalScrollableDistance = scrollSection.offsetHeight - window.innerHeight;
+    const totalTravel = scrollSection.offsetHeight - window.innerHeight;
 
-    if (totalScrollableDistance <= 0) return;
+    if (totalTravel <= 0) return;
 
-    // Distance scrolled inside this section
-    const scrolledInside = -rect.top;
-    const progress = Math.min(Math.max(scrolledInside / totalScrollableDistance, 0), 1);
+    // Distance scrolled past the pinning point
+    const scrolled = stickyOffset - rect.top;
+    const progress = Math.min(Math.max(scrolled / totalTravel, 0), 1);
 
     targetTranslateX = progress * maxScrollX;
 
@@ -340,8 +325,8 @@
   }
 
   function renderSmoothHorizontal() {
-    // Smooth dampening / interpolation
-    currentTranslateX += (targetTranslateX - currentTranslateX) * 0.18;
+    // Smooth, responsive interpolation
+    currentTranslateX += (targetTranslateX - currentTranslateX) * 0.22;
 
     if (Math.abs(targetTranslateX - currentTranslateX) < 0.2) {
       currentTranslateX = targetTranslateX;
@@ -364,27 +349,17 @@
   }
 
   // ==========================================================================
-  // ARROW BUTTONS & DIRECT CONTROLS
+  // USER CONTROLS: ARROWS, SEARCH & TOUCH SWIPE
   // ==========================================================================
   if (prevBtn) {
     prevBtn.addEventListener('click', () => {
-      if (window.innerWidth > 991 && scrollSection) {
-        const step = window.innerHeight * 0.45;
-        window.scrollBy({ top: -step, behavior: 'smooth' });
-      } else if (reposViewport) {
-        reposViewport.scrollBy({ left: -360, behavior: 'smooth' });
-      }
+      window.scrollBy({ top: -420, behavior: 'smooth' });
     });
   }
 
   if (nextBtn) {
     nextBtn.addEventListener('click', () => {
-      if (window.innerWidth > 991 && scrollSection) {
-        const step = window.innerHeight * 0.45;
-        window.scrollBy({ top: step, behavior: 'smooth' });
-      } else if (reposViewport) {
-        reposViewport.scrollBy({ left: 360, behavior: 'smooth' });
-      }
+      window.scrollBy({ top: 420, behavior: 'smooth' });
     });
   }
 
@@ -409,42 +384,29 @@
     });
   }
 
-  // Touch / horizontal scroll sync on mobile viewport
+  // Touch Swipe support for smartphones/tablets
+  let touchStartX = 0;
+  let touchStartY = 0;
   if (reposViewport) {
-    reposViewport.addEventListener('scroll', () => {
-      if (window.innerWidth <= 991 && progressFill) {
-        const maxV = reposViewport.scrollWidth - reposViewport.clientWidth;
-        const p = maxV > 0 ? (reposViewport.scrollLeft / maxV) * 100 : 0;
-        progressFill.style.width = `${p}%`;
+    reposViewport.addEventListener('touchstart', (e) => {
+      if (e.touches.length === 1) {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
       }
     }, { passive: true });
-  }
 
-  // Drag-to-scroll support for mouse users on viewport
-  let isDown = false;
-  let startX = 0;
-  let scrollLeft = 0;
-
-  if (reposViewport) {
-    reposViewport.addEventListener('mousedown', (e) => {
-      // Only drag if not clicking a link
-      if (e.target.closest('a') || e.target.closest('button')) return;
-      isDown = true;
-      startX = e.pageX - reposViewport.offsetLeft;
-      scrollLeft = reposViewport.scrollLeft;
-    });
-
-    window.addEventListener('mouseup', () => {
-      isDown = false;
-    });
-
-    reposViewport.addEventListener('mousemove', (e) => {
-      if (!isDown || window.innerWidth > 991) return;
-      e.preventDefault();
-      const x = e.pageX - reposViewport.offsetLeft;
-      const walk = (x - startX) * 1.5;
-      reposViewport.scrollLeft = scrollLeft - walk;
-    });
+    reposViewport.addEventListener('touchmove', (e) => {
+      if (e.touches.length === 1 && maxScrollX > 0) {
+        const deltaX = touchStartX - e.touches[0].clientX;
+        const deltaY = touchStartY - e.touches[0].clientY;
+        // If swiping horizontally across the cards, drive window vertical scroll
+        if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 6) {
+          window.scrollBy({ top: deltaX * 1.15, behavior: 'auto' });
+          touchStartX = e.touches[0].clientX;
+          touchStartY = e.touches[0].clientY;
+        }
+      }
+    }, { passive: true });
   }
 
   function escapeHtml(str) {
@@ -462,10 +424,9 @@
   window.addEventListener('scroll', handleWindowScroll, { passive: true });
   window.addEventListener('resize', updateScrollMetrics, { passive: true });
 
-  // Auto-detect newly created repositories on GitHub when tab gains focus
+  // Auto-sync when user switches back to portfolio tab
   let lastFocusSync = Date.now();
   window.addEventListener('focus', () => {
-    // 45 second debounce to avoid redundant API hits
     if (Date.now() - lastFocusSync > 45000) {
       lastFocusSync = Date.now();
       fetchGitHubRepos(false);
@@ -479,7 +440,7 @@
     }
   });
 
-  // Periodic background check every 3 minutes
+  // Periodic poll every 3 minutes
   setInterval(() => {
     if (!document.hidden) {
       fetchGitHubRepos(false);

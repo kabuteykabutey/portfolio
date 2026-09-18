@@ -87,7 +87,7 @@ html {
   font-size: 16px;
   background-color: var(--bg-main);
   color: var(--text-primary);
-  overflow-x: hidden;
+  overflow-x: clip;
   width: 100%;
 }
 
@@ -97,7 +97,7 @@ body {
   line-height: 1.6;
   background-color: transparent;
   color: var(--text-primary);
-  overflow-x: hidden;
+  overflow-x: clip;
   width: 100%;
   min-height: 100vh;
   position: relative;
@@ -1577,33 +1577,22 @@ section {
 /* ==========================================================================
    GITHUB REPOSITORIES: HORIZONTAL SCROLL ON VERTICAL SCROLL
    ========================================================================== */
+/* ==========================================================================
+   GITHUB REPOSITORIES: INTEGRATED PINNED HORIZONTAL SCROLL ON VERTICAL SCROLL
+   ========================================================================== */
 .github-scroll-section {
   position: relative;
   width: 100%;
-  /* Default height on desktop gives plenty of vertical scrolling room to pan across */
-  min-height: 240vh;
-  margin-top: 2rem;
-}
-
-@media (max-width: 991px) {
-  .github-scroll-section {
-    min-height: auto;
-    margin-top: 1.5rem;
-  }
+  margin-top: 2.5rem;
+  /* Height is dynamically set in JS to match exact track width for 1:1 scroll feel */
 }
 
 .github-sticky-wrapper {
+  position: -webkit-sticky;
   position: sticky;
-  top: calc(var(--header-height) + 1rem);
+  top: calc(var(--header-height) + 0.5rem);
   width: 100%;
-  padding-bottom: 2rem;
-}
-
-@media (max-width: 991px) {
-  .github-sticky-wrapper {
-    position: static;
-    padding-bottom: 0;
-  }
+  z-index: 10;
 }
 
 .github-repos-container {
@@ -1611,9 +1600,9 @@ section {
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-xl);
   padding: 2.25rem;
-  box-shadow: var(--shadow-card);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   overflow: hidden;
   position: relative;
 }
@@ -1623,7 +1612,7 @@ section {
   align-items: center;
   justify-content: space-between;
   gap: 1.25rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
   flex-wrap: wrap;
 }
 
@@ -1692,57 +1681,44 @@ section {
 
 .repos-horizontal-viewport {
   width: 100%;
-  overflow-x: auto;
-  overflow-y: hidden;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
+  overflow: hidden; /* Hidden so page vertical scroll continues uninterrupted */
+  position: relative;
   padding: 0.5rem 0.25rem 1.25rem 0.25rem;
-  cursor: grab;
-  scroll-behavior: smooth;
-}
-
-.repos-horizontal-viewport::-webkit-scrollbar {
-  display: none;
-}
-
-.repos-horizontal-viewport:active {
-  cursor: grabbing;
 }
 
 .repos-horizontal-track {
   display: flex;
-  gap: 1.25rem;
+  gap: 1.5rem;
   width: max-content;
   will-change: transform;
-  transition: transform 0.08s ease-out;
-}
-
-@media (max-width: 991px) {
-  .repos-horizontal-track {
-    transition: none;
-  }
+  transform: translate3d(0, 0, 0);
+  transition: transform 0.08s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .repo-card {
-  background: rgba(255, 255, 255, 0.028);
+  background: rgba(255, 255, 255, 0.03);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
   padding: 1.5rem;
-  width: 360px;
-  min-width: 360px;
+  width: 370px;
+  min-width: 370px;
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   min-height: 220px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
   transition: all var(--duration-fast) var(--ease-spring);
 }
 
-@media (max-width: 576px) {
+@media (max-width: 768px) {
+  .github-repos-container {
+    padding: 1.5rem 1.15rem;
+  }
+
   .repo-card {
-    width: 290px;
-    min-width: 290px;
+    width: 300px;
+    min-width: 300px;
     padding: 1.25rem;
     min-height: 200px;
   }
@@ -1751,7 +1727,7 @@ section {
 .repo-card:hover {
   background: rgba(255, 255, 255, 0.06);
   border-color: var(--accent-primary);
-  box-shadow: 0 8px 30px rgba(99, 102, 241, 0.18);
+  box-shadow: 0 8px 30px rgba(99, 102, 241, 0.2);
   transform: translateY(-4px);
 }
 
