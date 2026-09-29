@@ -5,22 +5,124 @@ const crypto = require('crypto');
 const JWT_SECRET = process.env.JWT_SECRET || 'brian-portfolio-fallback-secret-key-2026';
 const ADMIN_EMAIL = (process.env.ADMIN_EMAIL || 'admin@brian.dev').toLowerCase().trim();
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'brian123';
+const ADMIN_PASSWORD_HASH = process.env.ADMIN_PASSWORD_HASH || null;
 
-// CORS response helper
-function jsonResponse(statusCode, data) {
+// ==============================================================================
+// 1. TIGHTENED CORS HELPER
+// ==============================================================================
+function getAllowedOrigin(event) {
+  const origin = event.headers.origin || event.headers.Origin || '';
+  const allowedCustom = process.env.ALLOWED_ORIGIN; // e.g. https://yourcustomdomain.com
+
+  // 1. Allow localhost / 127.0.0.1 for local development
+  if (/^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin)) {
+    return origin;
+  }
+
+  // 2. Allow any Netlify preview or production subdomain
+  if (/^https:\/\/[a-zA-Z0-9-_]+\.netlify\.app$/.test(origin)) {
+    return origin;
+  }
+
+  // 3. Allow explicitly configured custom domain
+  if (allowedCustom && origin === allowedCustom) {
+    return origin;
+  }
+
+  // Fallback: If same-origin / server-side invocation without origin header
+  return allowedCustom || origin || '*';
+}
+
+function jsonResponse(statusCode, data, origin = '*') {
   return {
     statusCode,
     headers: {
       'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Origin': origin,
       'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-      'Access-Control-Allow-Methods': 'GET, POST, PUT, PATCH, DELETE, OPTIONS'
+      'Access-Control-Allow-Methods': 'GET, POST, PUT, PATCH, DELETE, OPTIONS',
+      'Vary': 'Origin'
     },
     body: JSON.stringify(data)
   };
 }
 
-// Token Helpers (Standard HS256 JWT using native Node.js crypto)
+// ==============================================================================
+// 2. RATE LIMITING (Sliding window by client IP)
+// ==============================================================================
+const rateLimitMap = new Map();
+
+function getClientIp(event) {
+  return (
+    event.headers['x-nf-client-connection-ip'] ||
+    event.headers['client-ip'] ||
+    event.headers['x-forwarded-for']?.split(',')[0]?.trim() ||
+    '127.0.0.1'
+  );
+}
+
+function checkRateLimit(ip, bucket, maxRequests, windowMs) {
+  const key = `${ip}:${bucket}`;
+  const now = Date.now();
+  const record = rateLimitMap.get(key) || { count: 0, resetAt: now + windowMs };
+
+  // Reset bucket if expired
+  if (now > record.resetAt) {
+    record.count = 0;
+    record.resetAt = now + windowMs;
+  }
+
+  record.count += 1;
+  rateLimitMap.set(key, record);
+
+  // Periodically prune stale keys to prevent memory leak
+  if (rateLimitMap.size > 2000) {
+    for (const [k, val] of rateLimitMap.entries()) {
+      if (now > val.resetAt) rateLimitMap.delete(k);
+    }
+  }
+
+  return record.count <= maxRequests;
+}
+
+// ==============================================================================
+// 3. SECURE PASSWORD HASHING & TIMING-SAFE VERIFICATION
+// ==============================================================================
+function verifyPassword(inputPassword, storedPassword, storedHash) {
+  // Option A: If a salted scrypt hash is configured (format: salt:hash)
+  if (storedHash && storedHash.includes(':')) {
+    const [salt, keyHex] = storedHash.split(':');
+    const keyBuf = Buffer.from(keyHex, 'hex');
+    const derived = crypto.scryptSync(inputPassword, salt, 64);
+    return crypto.timingSafeEqual(keyBuf, derived);
+  }
+
+  // Option B: Timing-safe comparison with plain stored password
+  // (Prevents timing attacks that expose password length/characters)
+  const inputHash = crypto.createHash('sha256').update(inputPassword).digest();
+  const storedHashBuf = crypto.createHash('sha256').update(storedPassword).digest();
+  return crypto.timingSafeEqual(inputHash, storedHashBuf);
+}
+
+// ==============================================================================
+// 4. FORM INPUT VALIDATION HELPERS
+// ==============================================================================
+const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/;
+
+function sanitizeString(str) {
+  if (typeof str !== 'string') return '';
+  return str.trim();
+}
+
+function validateEmail(email) {
+  if (!email || typeof email !== 'string') return false;
+  if (email.length > 100) return false;
+  return EMAIL_REGEX.test(email.trim());
+}
+
+// ==============================================================================
+// 5. TOKEN HELPERS (HS256 JWT using native Node.js crypto)
+// ==============================================================================
 function signToken(payload) {
   const header = Buffer.from(JSON.stringify({ alg: 'HS256', typ: 'JWT' })).toString('base64url');
   const body = Buffer.from(JSON.stringify(payload)).toString('base64url');
@@ -44,7 +146,9 @@ function verifyToken(token) {
   }
 }
 
-// Database Connection & Schema Initialization
+// ==============================================================================
+// 6. DATABASE CONNECTION & SCHEMA INITIALIZATION
+// ==============================================================================
 let dbClient = null;
 let initialized = false;
 
@@ -60,7 +164,6 @@ function getDb() {
 async function ensureSchema(db) {
   if (initialized) return;
 
-  // 1. Create tables
   await db.execute(`
     CREATE TABLE IF NOT EXISTS guestbook_signatures (
       id TEXT PRIMARY KEY,
@@ -99,7 +202,7 @@ async function ensureSchema(db) {
     );
   `);
 
-  // 2. Check if blog_posts has records, if not seed initial posts
+  // Seed default posts if empty
   const postCheck = await db.execute('SELECT COUNT(*) as count FROM blog_posts;');
   const postCount = Number(postCheck.rows[0]?.count || 0);
 
@@ -149,7 +252,7 @@ async function ensureSchema(db) {
     });
   }
 
-  // 3. Check signatures, seed sample signatures if empty
+  // Seed default signatures if empty
   const sigCheck = await db.execute('SELECT COUNT(*) as count FROM guestbook_signatures;');
   const sigCount = Number(sigCheck.rows[0]?.count || 0);
 
@@ -169,11 +272,16 @@ async function ensureSchema(db) {
   initialized = true;
 }
 
-// MAIN FUNCTION HANDLER
+// ==============================================================================
+// 7. MAIN FUNCTION HANDLER
+// ==============================================================================
 exports.handler = async function (event) {
+  const origin = getAllowedOrigin(event);
+  const clientIp = getClientIp(event);
+
   // CORS Preflight
   if (event.httpMethod === 'OPTIONS') {
-    return jsonResponse(204, {});
+    return jsonResponse(204, {}, origin);
   }
 
   // Normalize path
@@ -195,7 +303,7 @@ exports.handler = async function (event) {
     try {
       body = JSON.parse(event.body);
     } catch (e) {
-      return jsonResponse(400, { error: 'Invalid JSON body' });
+      return jsonResponse(400, { error: 'Invalid JSON payload format' }, origin);
     }
   }
 
@@ -210,17 +318,30 @@ exports.handler = async function (event) {
         database: isTurso ? 'Turso libSQL Cloud' : 'Local SQLite',
         configured: isTurso,
         timestamp: new Date().toISOString()
-      });
+      }, origin);
     }
 
     // -------------------------------------------------------------
     // AUTHENTICATION
     // -------------------------------------------------------------
     if (normalizedPath === '/auth/login' && method === 'POST') {
-      const email = (body.email || '').toLowerCase().trim();
+      // Rate Limit: max 5 login attempts per 15 minutes per IP
+      if (!checkRateLimit(clientIp, 'login', 5, 15 * 60 * 1000)) {
+        return jsonResponse(429, { error: 'Too many login attempts. Please wait 15 minutes before trying again.' }, origin);
+      }
+
+      const email = sanitizeString(body.email).toLowerCase();
       const password = body.password || '';
 
-      if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
+      if (!email || !password) {
+        return jsonResponse(400, { error: 'Email and password are required' }, origin);
+      }
+
+      // Timing-safe password verification
+      const isEmailValid = (email === ADMIN_EMAIL);
+      const isPasswordValid = verifyPassword(password, ADMIN_PASSWORD, ADMIN_PASSWORD_HASH);
+
+      if (isEmailValid && isPasswordValid) {
         const token = signToken({
           email: ADMIN_EMAIL,
           role: 'admin',
@@ -230,17 +351,17 @@ exports.handler = async function (event) {
         return jsonResponse(200, {
           token,
           user: { email: ADMIN_EMAIL, role: 'admin' }
-        });
+        }, origin);
       }
 
-      return jsonResponse(401, { error: 'Invalid email or password' });
+      return jsonResponse(401, { error: 'Invalid email or password' }, origin);
     }
 
     if (normalizedPath === '/auth/me' && method === 'GET') {
       if (!currentUser) {
-        return jsonResponse(401, { error: 'Unauthorized' });
+        return jsonResponse(401, { error: 'Unauthorized' }, origin);
       }
-      return jsonResponse(200, { user: currentUser });
+      return jsonResponse(200, { user: currentUser }, origin);
     }
 
     // Connect to database and ensure tables exist
@@ -265,13 +386,31 @@ exports.handler = async function (event) {
           date: new Date(row.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
         }));
 
-        return jsonResponse(200, signatures);
+        return jsonResponse(200, signatures, origin);
       }
 
       if (method === 'POST') {
-        const { name, role, signature } = body;
-        if (!name || !signature) {
-          return jsonResponse(400, { error: 'Name and signature are required' });
+        // Rate limit: max 5 signatures per 10 minutes per IP
+        if (!checkRateLimit(clientIp, 'signatures', 5, 10 * 60 * 1000)) {
+          return jsonResponse(429, { error: 'Signature rate limit reached. Please wait a few minutes before submitting another signature.' }, origin);
+        }
+
+        const name = sanitizeString(body.name);
+        const role = sanitizeString(body.role);
+        const signature = typeof body.signature === 'string' ? body.signature.trim() : '';
+
+        // Strict input validation
+        if (!name || name.length < 2 || name.length > 70) {
+          return jsonResponse(400, { error: 'Name must be between 2 and 70 characters.' }, origin);
+        }
+        if (role && role.length > 70) {
+          return jsonResponse(400, { error: 'Role must not exceed 70 characters.' }, origin);
+        }
+        if (!signature || (!signature.startsWith('data:image/') && !signature.startsWith('<svg'))) {
+          return jsonResponse(400, { error: 'Invalid signature drawing format.' }, origin);
+        }
+        if (signature.length > 80000) {
+          return jsonResponse(400, { error: 'Signature image is too large.' }, origin);
         }
 
         const id = 'sig-' + Date.now() + '-' + Math.random().toString(36).substring(2, 7);
@@ -291,20 +430,20 @@ exports.handler = async function (event) {
           role: role || '',
           signature,
           date: new Date(createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
-        });
+        }, origin);
       }
     }
 
     if (normalizedPath.startsWith('/signatures/') && method === 'DELETE') {
       if (!currentUser) {
-        return jsonResponse(401, { error: 'Admin authentication required' });
+        return jsonResponse(401, { error: 'Admin authentication required' }, origin);
       }
-      const id = decodeURIComponent(normalizedPath.replace('/signatures/', ''));
+      const id = decodeURIComponent(normalizedPath.replace('/signatures/', '')).slice(0, 100);
       await db.execute({
         sql: 'DELETE FROM guestbook_signatures WHERE id = ?;',
         args: [id]
       });
-      return jsonResponse(200, { success: true, id });
+      return jsonResponse(200, { success: true, id }, origin);
     }
 
     // -------------------------------------------------------------
@@ -328,27 +467,29 @@ exports.handler = async function (event) {
           content: row.content
         }));
 
-        return jsonResponse(200, posts);
+        return jsonResponse(200, posts, origin);
       }
 
       if (method === 'POST') {
         if (!currentUser) {
-          return jsonResponse(401, { error: 'Admin authentication required' });
+          return jsonResponse(401, { error: 'Admin authentication required' }, origin);
         }
 
-        const {
-          id = 'post-' + Date.now(),
-          title,
-          category,
-          categoryClass = 'badge-cyan',
-          date = new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
-          readTime = '3 min read',
-          excerpt,
-          content
-        } = body;
+        const id = sanitizeString(body.id) || 'post-' + Date.now();
+        const title = sanitizeString(body.title);
+        const category = sanitizeString(body.category) || 'Web Dev';
+        const categoryClass = sanitizeString(body.categoryClass) || 'badge-cyan';
+        const date = sanitizeString(body.date) || new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+        const readTime = sanitizeString(body.readTime) || '3 min read';
+        const excerpt = sanitizeString(body.excerpt);
+        const content = typeof body.content === 'string' ? body.content.trim() : '';
 
-        if (!title || !content) {
-          return jsonResponse(400, { error: 'Title and content are required' });
+        // Validation
+        if (!title || title.length < 3 || title.length > 200) {
+          return jsonResponse(400, { error: 'Article title must be between 3 and 200 characters.' }, origin);
+        }
+        if (!content || content.length < 10) {
+          return jsonResponse(400, { error: 'Article content is too short.' }, origin);
         }
 
         const createdAt = new Date().toISOString();
@@ -366,26 +507,26 @@ exports.handler = async function (event) {
               excerpt = excluded.excerpt,
               content = excluded.content;
           `,
-          args: [id, createdAt, title, category || 'Web Dev', categoryClass, date, readTime, excerpt || '', content]
+          args: [id, createdAt, title, category, categoryClass, date, readTime, excerpt || '', content]
         });
 
         return jsonResponse(200, {
           success: true,
           post: { id, title, category, categoryClass, date, readTime, excerpt, content }
-        });
+        }, origin);
       }
     }
 
     if (normalizedPath.startsWith('/posts/') && method === 'DELETE') {
       if (!currentUser) {
-        return jsonResponse(401, { error: 'Admin authentication required' });
+        return jsonResponse(401, { error: 'Admin authentication required' }, origin);
       }
-      const id = decodeURIComponent(normalizedPath.replace('/posts/', ''));
+      const id = decodeURIComponent(normalizedPath.replace('/posts/', '')).slice(0, 100);
       await db.execute({
         sql: 'DELETE FROM blog_posts WHERE id = ?;',
         args: [id]
       });
-      return jsonResponse(200, { success: true, id });
+      return jsonResponse(200, { success: true, id }, origin);
     }
 
     // -------------------------------------------------------------
@@ -393,9 +534,28 @@ exports.handler = async function (event) {
     // -------------------------------------------------------------
     if (normalizedPath === '/messages') {
       if (method === 'POST') {
-        const { name, email, subject, message } = body;
-        if (!name || !email || !message) {
-          return jsonResponse(400, { error: 'Name, email, and message are required' });
+        // Rate limit: max 5 contact messages per 10 minutes per IP
+        if (!checkRateLimit(clientIp, 'messages', 5, 10 * 60 * 1000)) {
+          return jsonResponse(429, { error: 'Message limit reached. Please wait a few minutes before sending another inquiry.' }, origin);
+        }
+
+        const name = sanitizeString(body.name);
+        const email = sanitizeString(body.email);
+        const subject = sanitizeString(body.subject);
+        const message = sanitizeString(body.message);
+
+        // Strict input validation
+        if (!name || name.length < 2 || name.length > 70) {
+          return jsonResponse(400, { error: 'Please enter a valid name (2 to 70 characters).' }, origin);
+        }
+        if (!validateEmail(email)) {
+          return jsonResponse(400, { error: 'Please enter a valid email address.' }, origin);
+        }
+        if (subject && subject.length > 150) {
+          return jsonResponse(400, { error: 'Subject cannot exceed 150 characters.' }, origin);
+        }
+        if (!message || message.length < 5 || message.length > 3000) {
+          return jsonResponse(400, { error: 'Message must be between 5 and 3000 characters.' }, origin);
         }
 
         const id = 'msg-' + Date.now();
@@ -413,12 +573,12 @@ exports.handler = async function (event) {
           success: true,
           id,
           created_at: createdAt
-        });
+        }, origin);
       }
 
       if (method === 'GET') {
         if (!currentUser) {
-          return jsonResponse(401, { error: 'Admin authentication required' });
+          return jsonResponse(401, { error: 'Admin authentication required' }, origin);
         }
 
         const result = await db.execute({
@@ -426,27 +586,28 @@ exports.handler = async function (event) {
           args: []
         });
 
-        return jsonResponse(200, result.rows);
+        return jsonResponse(200, result.rows, origin);
       }
     }
 
     if (normalizedPath.startsWith('/messages/') && method === 'DELETE') {
       if (!currentUser) {
-        return jsonResponse(401, { error: 'Admin authentication required' });
+        return jsonResponse(401, { error: 'Admin authentication required' }, origin);
       }
-      const id = decodeURIComponent(normalizedPath.replace('/messages/', ''));
+      const id = decodeURIComponent(normalizedPath.replace('/messages/', '')).slice(0, 100);
       await db.execute({
         sql: 'DELETE FROM contact_messages WHERE id = ?;',
         args: [id]
       });
-      return jsonResponse(200, { success: true, id });
+      return jsonResponse(200, { success: true, id }, origin);
     }
 
-    // If route doesn't match
-    return jsonResponse(404, { error: `Endpoint not found: ${method} ${normalizedPath}` });
+    // 404 Route
+    return jsonResponse(404, { error: `Endpoint not found: ${method} ${normalizedPath}` }, origin);
 
   } catch (error) {
-    console.error('API Error:', error);
-    return jsonResponse(500, { error: 'Internal Server Error', message: error.message });
+    // Disable production debug leak: log error to server console, send generic safe error to user
+    console.error('Secure API Error:', error);
+    return jsonResponse(500, { error: 'An unexpected internal error occurred. Please try again later.' }, origin);
   }
 };
