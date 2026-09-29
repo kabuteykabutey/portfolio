@@ -146,9 +146,22 @@ document.addEventListener('DOMContentLoaded', async () => {
       btn.addEventListener('click', async () => {
         const id = btn.getAttribute('data-id');
         if (confirm('Delete this article?')) {
-          await window.portfolioDB.deletePost(id);
+          const row = btn.closest('.item-row');
+          if (row) {
+            row.style.transition = 'all 0.2s ease';
+            row.style.opacity = '0';
+            row.style.transform = 'translateX(-20px)';
+            setTimeout(() => {
+              row.remove();
+              const remaining = postsList.querySelectorAll('.item-row').length;
+              badgePosts.textContent = remaining;
+              if (remaining === 0) {
+                postsList.innerHTML = '<p style="color: #a1a1aa;">No posts published yet.</p>';
+              }
+            }, 200);
+          }
           window.showToast('Article deleted', 'info');
-          loadPosts();
+          await window.portfolioDB.deletePost(id);
         }
       });
     });
@@ -223,10 +236,12 @@ document.addEventListener('DOMContentLoaded', async () => {
         content
       };
 
-      await window.portfolioDB.savePost(payload);
-      window.showToast('🎉 Article saved successfully!', 'success');
       postEditorCard.style.display = 'none';
       postForm.reset();
+      editPostId.value = '';
+      window.showToast('🎉 Article saved successfully!', 'success');
+
+      await window.portfolioDB.savePost(payload);
       loadPosts();
     });
   }
@@ -261,9 +276,22 @@ document.addEventListener('DOMContentLoaded', async () => {
       btn.addEventListener('click', async () => {
         const id = btn.getAttribute('data-id');
         if (confirm('Delete this visitor signature?')) {
-          await window.portfolioDB.deleteSignature(id);
+          const row = btn.closest('.item-row');
+          if (row) {
+            row.style.transition = 'all 0.2s ease';
+            row.style.opacity = '0';
+            row.style.transform = 'translateX(-20px)';
+            setTimeout(() => {
+              row.remove();
+              const remaining = sigsList.querySelectorAll('.item-row').length;
+              badgeSigs.textContent = remaining;
+              if (remaining === 0) {
+                sigsList.innerHTML = '<p style="color: #a1a1aa;">No signatures recorded yet.</p>';
+              }
+            }, 200);
+          }
           window.showToast('Signature removed', 'info');
-          loadSignatures();
+          await window.portfolioDB.deleteSignature(id);
         }
       });
     });
@@ -280,7 +308,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     msgsList.innerHTML = msgs.map(m => `
-      <div class="item-row" style="flex-direction: column; align-items: stretch; gap: 0.75rem;">
+      <div class="item-row" data-id="${m.id}" style="flex-direction: column; align-items: stretch; gap: 0.75rem;">
         <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 0.5rem;">
           <div>
             <strong style="color: #facc15; font-size: 1.05rem;">${escapeHtml(m.name)}</strong>
@@ -294,13 +322,40 @@ document.addEventListener('DOMContentLoaded', async () => {
         </div>
         ${m.subject ? `<div style="font-weight: 700; font-size: 0.95rem; color: #e4e4e7;">Subject: ${escapeHtml(m.subject)}</div>` : ''}
         <div style="background: #1c1c20; border: 1px solid #2e2e34; padding: 0.75rem 1rem; border-radius: 4px; font-size: 0.9rem; line-height: 1.5; color: #d4d4d8; white-space: pre-wrap;">${escapeHtml(m.message)}</div>
-        <div style="display: flex; justify-content: flex-end;">
+        <div style="display: flex; justify-content: flex-end; gap: 0.5rem;">
           <a href="mailto:${escapeHtml(m.email)}?subject=Re:%20${encodeURIComponent(m.subject || 'Portfolio Inquiry')}" class="neo-btn neo-btn-cyan" style="font-size: 0.8rem; padding: 0.35rem 0.75rem;">
             Reply via Email ✉️
           </a>
+          <button class="neo-btn btn-danger delete-msg-btn" data-id="${m.id}" style="font-size: 0.8rem; padding: 0.35rem 0.75rem;">
+            Delete 🗑️
+          </button>
         </div>
       </div>
     `).join('');
+
+    msgsList.querySelectorAll('.delete-msg-btn').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const id = btn.getAttribute('data-id');
+        if (confirm('Delete this message from your inbox?')) {
+          const row = btn.closest('.item-row');
+          if (row) {
+            row.style.transition = 'all 0.2s ease';
+            row.style.opacity = '0';
+            row.style.transform = 'translateX(-20px)';
+            setTimeout(() => {
+              row.remove();
+              const remaining = msgsList.querySelectorAll('.item-row').length;
+              badgeMsgs.textContent = remaining;
+              if (remaining === 0) {
+                msgsList.innerHTML = '<p style="color: #a1a1aa;">Inbox is empty. No messages received yet.</p>';
+              }
+            }, 200);
+          }
+          window.showToast('Message deleted', 'info');
+          await window.portfolioDB.deleteContactMessage(id);
+        }
+      });
+    });
   }
 
   // Initial check

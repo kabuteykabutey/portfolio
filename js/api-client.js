@@ -94,23 +94,25 @@
 
     async deleteSignature(id) {
       try {
+        const local = localStorage.getItem(STORAGE_KEYS.signatures);
+        const list = local ? JSON.parse(local).filter(s => s.id !== id) : [];
+        localStorage.setItem(STORAGE_KEYS.signatures, JSON.stringify(list));
+      } catch (e) {}
+
+      try {
         await apiRequest(`/signatures/${encodeURIComponent(id)}`, {
           method: 'DELETE'
         });
       } catch (e) {
-        console.warn('API deleteSignature failed, deleting locally:', e);
+        console.warn('API deleteSignature failed:', e);
       }
-      try {
-        const list = (await this.getSignatures()).filter(s => s.id !== id);
-        localStorage.setItem(STORAGE_KEYS.signatures, JSON.stringify(list));
-      } catch (e) {}
     },
 
     // --- Blog Posts ---
     async getPosts() {
       try {
         const data = await apiRequest('/posts');
-        if (Array.isArray(data) && data.length > 0) {
+        if (Array.isArray(data)) {
           localStorage.setItem(STORAGE_KEYS.posts, JSON.stringify(data));
           return data;
         }
@@ -127,6 +129,14 @@
 
     async savePost(post) {
       try {
+        const local = localStorage.getItem(STORAGE_KEYS.posts);
+        let list = local ? JSON.parse(local) : [];
+        list = list.filter(p => p.id !== post.id);
+        list.unshift(post);
+        localStorage.setItem(STORAGE_KEYS.posts, JSON.stringify(list));
+      } catch (e) {}
+
+      try {
         const res = await apiRequest('/posts', {
           method: 'POST',
           body: JSON.stringify(post)
@@ -135,30 +145,26 @@
           post = res.post;
         }
       } catch (e) {
-        console.warn('API savePost failed, saving locally:', e);
+        console.warn('API savePost failed:', e);
       }
-
-      try {
-        const posts = (await this.getPosts()).filter(p => p.id !== post.id);
-        posts.unshift(post);
-        localStorage.setItem(STORAGE_KEYS.posts, JSON.stringify(posts));
-      } catch (e) {}
 
       return post;
     },
 
     async deletePost(id) {
       try {
+        const local = localStorage.getItem(STORAGE_KEYS.posts);
+        const list = local ? JSON.parse(local).filter(p => p.id !== id) : [];
+        localStorage.setItem(STORAGE_KEYS.posts, JSON.stringify(list));
+      } catch (e) {}
+
+      try {
         await apiRequest(`/posts/${encodeURIComponent(id)}`, {
           method: 'DELETE'
         });
       } catch (e) {
-        console.warn('API deletePost failed, deleting locally:', e);
+        console.warn('API deletePost failed:', e);
       }
-      try {
-        const posts = (await this.getPosts()).filter(p => p.id !== id);
-        localStorage.setItem(STORAGE_KEYS.posts, JSON.stringify(posts));
-      } catch (e) {}
     },
 
     // --- Contact Messages ---
@@ -192,7 +198,10 @@
     async getContactMessages() {
       try {
         const data = await apiRequest('/messages');
-        if (Array.isArray(data)) return data;
+        if (Array.isArray(data)) {
+          localStorage.setItem(STORAGE_KEYS.messages, JSON.stringify(data));
+          return data;
+        }
       } catch (e) {
         console.warn('API getContactMessages failed, loading locally:', e);
       }
@@ -201,6 +210,22 @@
         return local ? JSON.parse(local) : [];
       } catch (e) {
         return [];
+      }
+    },
+
+    async deleteContactMessage(id) {
+      try {
+        const local = localStorage.getItem(STORAGE_KEYS.messages);
+        const list = local ? JSON.parse(local).filter(m => m.id !== id) : [];
+        localStorage.setItem(STORAGE_KEYS.messages, JSON.stringify(list));
+      } catch (e) {}
+
+      try {
+        await apiRequest(`/messages/${encodeURIComponent(id)}`, {
+          method: 'DELETE'
+        });
+      } catch (e) {
+        console.warn('API deleteContactMessage failed:', e);
       }
     }
   };
