@@ -10,7 +10,7 @@
     Permissions-Policy = "camera=(), microphone=(), geolocation=()"
 
 [[headers]]
-  for = "/js/supabase-config.js"
+  for = "/js/api-client.js"
   [headers.values]
     Cache-Control = "no-store"
 
@@ -19,11 +19,19 @@
   [headers.values]
     X-Robots-Tag = "noindex"
 
+# Redirect API calls to the serverless function
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/api/:splat"
+  status = 200
+
+# Admin route alias
 [[redirects]]
   from = "/admin"
   to = "/admin.html"
   status = 200
 
+# Single Page fallback
 [[redirects]]
   from = "/*"
   to = "/index.html"
