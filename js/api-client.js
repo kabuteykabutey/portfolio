@@ -17,7 +17,7 @@
 
   // Helper for fetch with auth header
   async function apiRequest(endpoint, options = {}) {
-    const token = localStorage.getItem(STORAGE_KEYS.token);
+    const token = sessionStorage.getItem(STORAGE_KEYS.token);
     const headers = {
       'Content-Type': 'application/json',
       ...(options.headers || {})
@@ -239,15 +239,15 @@
           body: JSON.stringify({ email, password })
         });
         if (data.token && data.user) {
-          localStorage.setItem(STORAGE_KEYS.token, data.token);
-          localStorage.setItem(STORAGE_KEYS.user, JSON.stringify(data.user));
+          sessionStorage.setItem(STORAGE_KEYS.token, data.token);
+          sessionStorage.setItem(STORAGE_KEYS.user, JSON.stringify(data.user));
           return data.user;
         }
       } catch (e) {
         // Fallback for demo credentials if API offline
         if (email.trim().toLowerCase() === 'admin@brian.dev' && password === 'brian123') {
           const localUser = { email: 'admin@brian.dev', role: 'admin', id: 'local-admin' };
-          localStorage.setItem(STORAGE_KEYS.user, JSON.stringify(localUser));
+          sessionStorage.setItem(STORAGE_KEYS.user, JSON.stringify(localUser));
           return localUser;
         }
         throw e;
@@ -255,13 +255,13 @@
     },
 
     async logout() {
-      localStorage.removeItem(STORAGE_KEYS.token);
-      localStorage.removeItem(STORAGE_KEYS.user);
+      sessionStorage.removeItem(STORAGE_KEYS.token);
+      sessionStorage.removeItem(STORAGE_KEYS.user);
     },
 
     async getCurrentUser() {
-      const token = localStorage.getItem(STORAGE_KEYS.token);
-      const userStr = localStorage.getItem(STORAGE_KEYS.user);
+      const token = sessionStorage.getItem(STORAGE_KEYS.token);
+      const userStr = sessionStorage.getItem(STORAGE_KEYS.user);
       if (token && userStr) {
         try {
           return JSON.parse(userStr);
