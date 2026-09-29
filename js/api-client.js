@@ -237,19 +237,7 @@
     async getCurrentUser() {
       const token = localStorage.getItem(STORAGE_KEYS.token);
       const userStr = localStorage.getItem(STORAGE_KEYS.user);
-      if (token) {
-        try {
-          const res = await apiRequest('/auth/me');
-          if (res && res.user) {
-            return res.user;
-          }
-        } catch (e) {
-          localStorage.removeItem(STORAGE_KEYS.token);
-          localStorage.removeItem(STORAGE_KEYS.user);
-          return null;
-        }
-      }
-      if (userStr) {
+      if (token && userStr) {
         try {
           return JSON.parse(userStr);
         } catch (e) {

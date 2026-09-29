@@ -34,8 +34,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   const editorTitle = document.getElementById('editor-title');
 
   // 1. Check current session
-  async function checkAuth() {
-    const user = await window.portfolioAuth.getCurrentUser();
+  async function checkAuth(immediateUser = null) {
+    const user = immediateUser || await window.portfolioAuth.getCurrentUser();
     if (user) {
       authGate.style.display = 'none';
       dashboard.style.display = 'block';
@@ -52,15 +52,33 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (loginForm) {
     loginForm.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const email = document.getElementById('admin-email').value;
+      const submitBtn = loginForm.querySelector('button[type="submit"]');
+      const originalText = submitBtn ? submitBtn.innerHTML : 'Sign In';
+
+      const email = document.getElementById('admin-email').value.trim();
       const password = document.getElementById('admin-password').value;
+
+      if (!email || !password) {
+        window.showToast('⚠️ Please enter email and password', 'error');
+        return;
+      }
+
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = 'Signing in... ⏳';
+      }
 
       try {
         const user = await window.portfolioAuth.login(email, password);
         window.showToast('✅ Welcome back, Brian!', 'success');
-        checkAuth();
+        checkAuth(user);
       } catch (err) {
         window.showToast('⚠️ ' + (err.message || 'Login failed'), 'error');
+      } finally {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalText;
+        }
       }
     });
   }
@@ -87,11 +105,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   });
 
-  // 5. Load All Dashboard Data
+  // 5. Load All Dashboard Data Concurrently
   async function loadAllData() {
-    loadPosts();
-    loadSignatures();
-    loadMessages();
+    await Promise.allSettled([
+      loadPosts(),
+      loadSignatures(),
+      loadMessages()
+    ]);
   }
 
   // --- BLOG POSTS ---

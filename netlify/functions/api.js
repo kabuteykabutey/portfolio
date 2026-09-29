@@ -272,6 +272,19 @@ async function ensureSchema(db) {
   initialized = true;
 }
 
+// Execute query with automatic schema initialization on demand
+async function safeExecute(db, query) {
+  try {
+    return await db.execute(query);
+  } catch (err) {
+    if (err.message && (err.message.includes('no such table') || err.message.includes('SQLITE_ERROR'))) {
+      await ensureSchema(db);
+      return await db.execute(query);
+    }
+    throw err;
+  }
+}
+
 // ==============================================================================
 // 7. MAIN FUNCTION HANDLER
 // ==============================================================================
@@ -313,6 +326,10 @@ exports.handler = async function (event) {
     // -------------------------------------------------------------
     if (normalizedPath === '/health' && method === 'GET') {
       const isTurso = Boolean(process.env.TURSO_DATABASE_URL);
+      if (event.queryStringParameters?.init === 'true') {
+        const db = getDb();
+        await ensureSchema(db);
+      }
       return jsonResponse(200, {
         status: 'ok',
         database: isTurso ? 'Turso libSQL Cloud' : 'Local SQLite',
@@ -364,16 +381,15 @@ exports.handler = async function (event) {
       return jsonResponse(200, { user: currentUser }, origin);
     }
 
-    // Connect to database and ensure tables exist
+    // Connect to database (lazy table initialization handled by safeExecute)
     const db = getDb();
-    await ensureSchema(db);
 
     // -------------------------------------------------------------
     // GUESTBOOK SIGNATURES
     // -------------------------------------------------------------
     if (normalizedPath === '/signatures') {
       if (method === 'GET') {
-        const result = await db.execute({
+        const result = await safeExecute(db, {
           sql: 'SELECT * FROM guestbook_signatures WHERE is_approved = 1 ORDER BY created_at DESC;',
           args: []
         });
@@ -416,7 +432,7 @@ exports.handler = async function (event) {
         const id = 'sig-' + Date.now() + '-' + Math.random().toString(36).substring(2, 7);
         const createdAt = new Date().toISOString();
 
-        await db.execute({
+        await safeExecute(db,{
           sql: `
             INSERT INTO guestbook_signatures (id, created_at, name, role, signature, is_approved)
             VALUES (?, ?, ?, ?, ?, 1);
@@ -439,7 +455,7 @@ exports.handler = async function (event) {
         return jsonResponse(401, { error: 'Admin authentication required' }, origin);
       }
       const id = decodeURIComponent(normalizedPath.replace('/signatures/', '')).slice(0, 100);
-      await db.execute({
+      await safeExecute(db,{
         sql: 'DELETE FROM guestbook_signatures WHERE id = ?;',
         args: [id]
       });
@@ -451,7 +467,7 @@ exports.handler = async function (event) {
     // -------------------------------------------------------------
     if (normalizedPath === '/posts') {
       if (method === 'GET') {
-        const result = await db.execute({
+        const result = await safeExecute(db,{
           sql: 'SELECT * FROM blog_posts WHERE is_published = 1 ORDER BY created_at DESC;',
           args: []
         });
@@ -494,7 +510,7 @@ exports.handler = async function (event) {
 
         const createdAt = new Date().toISOString();
 
-        await db.execute({
+        await safeExecute(db,{
           sql: `
             INSERT INTO blog_posts (id, created_at, title, category, category_class, date, read_time, excerpt, content, is_published)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 1)
@@ -522,7 +538,7 @@ exports.handler = async function (event) {
         return jsonResponse(401, { error: 'Admin authentication required' }, origin);
       }
       const id = decodeURIComponent(normalizedPath.replace('/posts/', '')).slice(0, 100);
-      await db.execute({
+      await safeExecute(db,{
         sql: 'DELETE FROM blog_posts WHERE id = ?;',
         args: [id]
       });
@@ -561,7 +577,7 @@ exports.handler = async function (event) {
         const id = 'msg-' + Date.now();
         const createdAt = new Date().toISOString();
 
-        await db.execute({
+        await safeExecute(db,{
           sql: `
             INSERT INTO contact_messages (id, created_at, name, email, subject, message, is_read)
             VALUES (?, ?, ?, ?, ?, ?, 0);
@@ -581,7 +597,7 @@ exports.handler = async function (event) {
           return jsonResponse(401, { error: 'Admin authentication required' }, origin);
         }
 
-        const result = await db.execute({
+        const result = await safeExecute(db,{
           sql: 'SELECT * FROM contact_messages ORDER BY created_at DESC;',
           args: []
         });
@@ -595,7 +611,7 @@ exports.handler = async function (event) {
         return jsonResponse(401, { error: 'Admin authentication required' }, origin);
       }
       const id = decodeURIComponent(normalizedPath.replace('/messages/', '')).slice(0, 100);
-      await db.execute({
+      await safeExecute(db,{
         sql: 'DELETE FROM contact_messages WHERE id = ?;',
         args: [id]
       });
